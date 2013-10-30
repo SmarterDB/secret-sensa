@@ -785,7 +785,7 @@ namespace secret_sensa.GUI
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = filter;
             dialog.Multiselect = false;
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (true==dialog.ShowDialog())
             {
                 return dialog.FileName;
             }
@@ -809,7 +809,7 @@ namespace secret_sensa.GUI
 
             SaveFileDialog dialog = new SaveFileDialog();
             dialog.Filter = filter;
-            if (dialog.ShowDialog() == DialogResult.OK)
+            if (true==dialog.ShowDialog())
             {
                 return dialog.FileName;
             }
