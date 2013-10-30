@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{48647689-DE3F-4016-A809-640FCA7F2D44}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OzekiDemoSoftphoneWPF</RootNamespace>
+    <AssemblyName>OzekiDemoSoftphoneWPF</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="VoIPSDK">
+      <HintPath>..\..\..\SDK\VoIPSDK.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="GUI\AboutWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GUI\AccountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\ForwardWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GUI\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Converters\AttendedTransferTargetListConverter.cs" />
+    <Compile Include="GUI\Converters\FileNameToIsEnabledConverter.cs" />
+    <Compile Include="GUI\Converters\FrameRateListToStringConverter.cs" />
+    <Compile Include="GUI\Converters\FrameRateToStringConverter.cs" />
+    <Compile Include="GUI\Converters\MessageSummaryLineConverter.cs" />
+    <Compile Include="GUI\Converters\MessageSummaryToBoolConverter.cs" />
+    <Compile Include="GUI\Converters\MessageSummaryToStringConverter.cs" />
+    <Compile Include="GUI\Converters\ResolutionConverter.cs" />
+    <Compile Include="GUI\Converters\ResolutionListConverter.cs" />
+    <Compile Include="GUI\Converters\RingtoneToStringConverter.cs" />
+    <Compile Include="GUI\Converters\SupportedMediaTypesToCallTypeConverter.cs" />
+    <Compile Include="GUI\MessageSummaryWindow.xaml.cs">
+      <DependentUpon>MessageSummaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\NatDiscoveryWindow.xaml.cs">
+      <DependentUpon>NatDiscoveryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Data\ObservableList.cs" />
+    <Compile Include="Model\Data\MessageSummaryArgs.cs" />
+    <Compile Include="Model\Data\CallHistoryInfo.cs" />
+    <Compile Include="Model\Data\PhoneCallInstantMessageArgs.cs" />
+    <Compile Include="Model\Data\TransferMode.cs" />
+    <Compile Include="GUI\AccountWindow.xaml.cs">
+      <DependentUpon>AccountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Converters\TransferModeToATBoolConverter.cs" />
+    <Compile Include="GUI\Converters\IncomingToDirectionConverter.cs" />
+    <Compile Include="GUI\Converters\ReverseBoolConverter.cs" />
+    <Compile Include="GUI\Converters\SIPAccountToStringConverter.cs" />
+    <Compile Include="GUI\Converters\TransferModeToBTBoolConverter.cs" />
+    <Compile Include="GUI\ForwardWindow.xaml.cs">
+      <DependentUpon>ForwardWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="GUI\MessageSummaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\NatDiscoveryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\TransferWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\Data\PhoneLineInstantMessageArgs.cs" />
+    <Compile Include="GUI\TransferWindow.xaml.cs">
+      <DependentUpon>TransferWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\GUIModels\AccountModel.cs" />
+    <Compile Include="Model\CallHistory.cs" />
+    <Compile Include="Model\GEventArgs.cs" />
+    <Compile Include="Model\MediaHandlers.cs" />
+    <Compile Include="Model\SoftphoneEngine.cs" />
+    <Compile Include="GUI\GUIModels\TransferModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\ozeki_voip_sip_sdk_pic2.png" />
+    <Resource Include="Resources\sdk_icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\basic_ring.wav" />
+    <EmbeddedResource Include="Resources\ringback.wav" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
