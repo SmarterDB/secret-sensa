@@ -11,6 +11,7 @@ using TestSoftphone;
 using System.ComponentModel;
 using Ozeki.Network.Nat;
 using System.Net;
+using Ozeki.Common.Logger;
 
 namespace secret_sensa.Model
 {
@@ -179,6 +180,7 @@ namespace secret_sensa.Model
         /// </summary>
         internal void InitSoftphone(bool useFixIP)
         {
+            Logger.Open(LogLevel.Debug); // open logger
             // if the softphone is already created, then close it
             if (softPhone != null)
             {
@@ -195,9 +197,9 @@ namespace secret_sensa.Model
 
             // create new softphone
             if (LocalIP == null || !useFixIP)
-                softPhone = SoftPhoneFactory.CreateSoftPhone(MinPort, MaxPort, 5060);
+                softPhone = SoftPhoneFactory.CreateSoftPhone(MinPort, MaxPort, 5060, "c:\\log.txt");
             else
-                softPhone = SoftPhoneFactory.CreateSoftPhone(LocalIP, MinPort, MaxPort, 5060);
+                softPhone = SoftPhoneFactory.CreateSoftPhone(LocalIP, MinPort, MaxPort, 5060, "c:\\log.txt");
 
             softPhone.IncomingCall += (SoftPhone_IncomingCall);
         }
