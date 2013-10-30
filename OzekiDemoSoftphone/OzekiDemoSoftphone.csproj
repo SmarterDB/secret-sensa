@@ -75,7 +75,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="VoIPSDK">
-      <HintPath>..\..\..\SDK\VoIPSDK.dll</HintPath>
+      <HintPath>..\secret-sensa\secret-sensa\3rd\VoIPSDK.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -44,7 +44,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="VoIPSDK">
-      <HintPath>..\..\..\SDK\VoIPSDK.dll</HintPath>
+      <HintPath>..\secret-sensa\secret-sensa\3rd\VoIPSDK.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
