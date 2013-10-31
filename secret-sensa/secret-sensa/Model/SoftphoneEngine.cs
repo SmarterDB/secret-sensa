@@ -197,9 +197,11 @@ namespace secret_sensa.Model
 
             // create new softphone
             if (LocalIP == null || !useFixIP)
-                softPhone = SoftPhoneFactory.CreateSoftPhone(MinPort, MaxPort, 5060, "c:\\log.txt");
+                //softPhone = SoftPhoneFactory.CreateSoftPhone(MinPort, MaxPort, 5060, "c:\\log.txt");
+                softPhone = SoftPhoneFactory.CreateSoftPhone(MinPort, MaxPort, 5060, "c:\\YEK\\log.txt");
             else
-                softPhone = SoftPhoneFactory.CreateSoftPhone(LocalIP, MinPort, MaxPort, 5060, "c:\\log.txt");
+                //softPhone = SoftPhoneFactory.CreateSoftPhone(LocalIP, MinPort, MaxPort, 5060, "c:\\log.txt");
+                softPhone = SoftPhoneFactory.CreateSoftPhone(LocalIP, MinPort, MaxPort, 5060, "c:\\YEK\\log.txt");
 
             softPhone.IncomingCall += (SoftPhone_IncomingCall);
         }

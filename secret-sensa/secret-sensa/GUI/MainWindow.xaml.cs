@@ -155,7 +155,7 @@ namespace secret_sensa.GUI
 
             Model.PhoneLineStateChanged += (Model_PhoneLineStateChanged);
             Model.PhoneCallStateChanged += (Model_PhoneCallStateChanged);
-            Model.MessageSummaryReceived += (Model_MessageSummaryReceived);
+            //Model.MessageSummaryReceived += (Model_MessageSummaryReceived);
             Model.NatDiscoveryFinished += (Model_NatDiscoveryFinished);
             Model.CallInstantMessageReceived += (Model_CallInstantMessageReceived);
             Model.MediaHandlers.MicrophoneStopped += MediaHandlers_MicrophoneStopped;
@@ -177,7 +177,7 @@ namespace secret_sensa.GUI
         {
             Model.PhoneLineStateChanged -= (Model_PhoneLineStateChanged);
             Model.PhoneCallStateChanged -= (Model_PhoneCallStateChanged);
-            Model.MessageSummaryReceived -= (Model_MessageSummaryReceived);
+            //Model.MessageSummaryReceived -= (Model_MessageSummaryReceived);
             Model.NatDiscoveryFinished -= (Model_NatDiscoveryFinished);
             Model.CallInstantMessageReceived -= (Model_CallInstantMessageReceived);
             Model.Dispose();
@@ -197,14 +197,14 @@ namespace secret_sensa.GUI
             UpdatePhoneCalls();
         }
 
-        private void Model_MessageSummaryReceived(object sender, MessageSummaryArgs e)
-        {
-            btnMessageSummary.Dispatcher.Invoke(new Action(() =>
-            {
-                btnMessageSummary.GetBindingExpression(Button.ContentProperty).UpdateTarget();
-                btnMessageSummary.GetBindingExpression(Button.IsEnabledProperty).UpdateTarget();
-            }));
-        }
+        //private void Model_MessageSummaryReceived(object sender, MessageSummaryArgs e)
+        //{
+        //    btnMessageSummary.Dispatcher.Invoke(new Action(() =>
+        //    {
+        //        btnMessageSummary.GetBindingExpression(Button.ContentProperty).UpdateTarget();
+        //        btnMessageSummary.GetBindingExpression(Button.IsEnabledProperty).UpdateTarget();
+        //    }));
+        //}
 
         private void Model_CallInstantMessageReceived(object sender, PhoneCallInstantMessageArgs e)
         {
@@ -282,14 +282,14 @@ namespace secret_sensa.GUI
             Model.UnregisterPhoneLine();
         }
 
-        private void btnMessageSummary_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedLine == null)
-                return;
+        //private void btnMessageSummary_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (SelectedLine == null)
+        //        return;
 
-            MessageSummaryWindow messageSummaryWin = new MessageSummaryWindow(this, SelectedLine.MessageSummary);
-            messageSummaryWin.ShowDialog();
-        }
+        //    MessageSummaryWindow messageSummaryWin = new MessageSummaryWindow(this, SelectedLine.MessageSummary);
+        //    messageSummaryWin.ShowDialog();
+        //}
 
         #endregion
 
@@ -515,50 +515,50 @@ namespace secret_sensa.GUI
             }
         }
 
-        private void cbAudioVideoCall_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            switch (cbAudioVideoCall.SelectedIndex)
-            {
-                case 0:
-                    Model.ModifyCallType(CallType.Audio);
-                    return;
+        //private void cbAudioVideoCall_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    switch (cbAudioVideoCall.SelectedIndex)
+        //    {
+        //        case 0:
+        //            Model.ModifyCallType(CallType.Audio);
+        //            return;
 
-                case 1:
-                    Model.ModifyCallType(CallType.AudioVideo);
-                    return;
-            }
-        }
+        //        case 1:
+        //            Model.ModifyCallType(CallType.AudioVideo);
+        //            return;
+        //    }
+        //}
 
         #endregion
 
         #region Call History
 
-        private void lvCallHistory_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Redial();
-        }
+        //private void lvCallHistory_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //{
+        //    Redial();
+        //}
 
-        private void btnRedial_Click(object sender, RoutedEventArgs e)
-        {
-            Redial();
-        }
+        //private void btnRedial_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Redial();
+        //}
 
-        private void btnClearCallHistory_Click(object sender, RoutedEventArgs e)
-        {
-            Model.CallHistory.Clear();
-        }
+        //private void btnClearCallHistory_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Model.CallHistory.Clear();
+        //}
 
-        private void Redial()
-        {
-            CallHistoryInfo info = lvCallHistory.SelectedItem as CallHistoryInfo;
-            if (info == null)
-                return;
+        //private void Redial()
+        //{
+        //    CallHistoryInfo info = lvCallHistory.SelectedItem as CallHistoryInfo;
+        //    if (info == null)
+        //        return;
 
-            DialNumber = info.OtherParty.UserName;
-            Dial(CallType.Audio, false);
+        //    DialNumber = info.OtherParty.UserName;
+        //    Dial(CallType.Audio, false);
 
-            tiPhoneCalls.IsSelected = true;
-        }
+        //    tiPhoneCalls.IsSelected = true;
+        //}
 
         #endregion
 
@@ -940,16 +940,16 @@ namespace secret_sensa.GUI
 
         #endregion
 
-        private void btnSend_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedLine == null)
-                return;
+        //private void btnSend_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (SelectedLine == null)
+        //        return;
 
-            SelectedLine.SendOutofDialogInstantMessage(Recipient, InstantMessage);
-            string msgSender = string.Format("{0}@{1}", SelectedLine.SIPAccount.UserName, SelectedLine.SIPAccount.GetSIPHostPort(SelectedLine.TransportType));
-            Model.AddInstantMessage(msgSender, InstantMessage);
-            InstantMessage = "";
-        }
+        //    SelectedLine.SendOutofDialogInstantMessage(Recipient, InstantMessage);
+        //    string msgSender = string.Format("{0}@{1}", SelectedLine.SIPAccount.UserName, SelectedLine.SIPAccount.GetSIPHostPort(SelectedLine.TransportType));
+        //    Model.AddInstantMessage(msgSender, InstantMessage);
+        //    InstantMessage = "";
+        //}
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
