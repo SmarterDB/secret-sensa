@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:conv="clr-namespace:secret_sensa.GUI.Converters"
         xmlns:video="clr-namespace:Ozeki.Media.Video.Controls;assembly=VoIPSDK"
-        Title="{Binding TitleString}" Height="606.856" Width="986" WindowStartupLocation="CenterScreen"
+        Title="{Binding TitleString}" Height="895.512" Width="976.05" WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Self}}" 
         Closing="Window_Closing" 
         Loaded="Window_Loaded" 
@@ -27,141 +27,55 @@
                                    ItemHeight="{Binding (ListView.View).ItemHeight, RelativeSource={RelativeSource AncestorType=ListView}}" />
         </ItemsPanelTemplate>
     </Window.Resources>
-    <Grid>
+    <Grid Margin="0,0,-0.333,0.333">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="6" />
-            <ColumnDefinition Width="760" />
-            <ColumnDefinition Width="208*" />
+            <ColumnDefinition Width="980.666666666667" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="41" />
-            <RowDefinition Height="116" />
-            <RowDefinition Height="6" />
-            <RowDefinition Height="203" />
-            <RowDefinition Height="6" />
-            <RowDefinition />
+            <RowDefinition Height="164.666666666667" />
+            <RowDefinition Height="516" />
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Name="lOzekiVoIPSIPSDK" Content="Ozeki VoIP SIP SDK"  HorizontalAlignment="Left" Margin="6,7,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Grid.Column="1" Height="33.94" Width="214.75" />
-        <Button Name="btnAboutOzeki" Content="About Ozeki" Height="23" Margin="631,12,0,0" VerticalAlignment="Top" Foreground="RoyalBlue" Background="White" Click="btnAboutOzeki_Click" Grid.Column="1" HorizontalAlignment="Left" Width="82" />
-        <Button Name="btnProjects" Content="Projects" Height="23" HorizontalAlignment="Left" Margin="718,12,0,0"  VerticalAlignment="Top" Width="75" Click="btnProjects_Click" Grid.Column="1" Grid.ColumnSpan="2" />
-        <Button Name="btnWebsite" Content="Website" Height="23" HorizontalAlignment="Left" Margin="38,12,0,0"  VerticalAlignment="Top" Width="75" Click="btnWebsite_Click" Grid.Column="2" />
-        <Button Name="btnHelp" Content="Help" Height="23" Margin="118,12,0,0"  VerticalAlignment="Top" Click="btnHelp_Click" Grid.Column="2" HorizontalAlignment="Left" Width="75" />
-        <GroupBox Name="grpRemoteVideo" Header="Remote video" Height="164" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="2" Grid.Row="3" Margin="0,0,0,0" Width="196">
-            <Grid>
-                <video:VideoViewerWPF Width="180" Height="135" HorizontalAlignment="Left" Margin="4,7,0,0" Name="remoteVideoViewer" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+        <GroupBox Name="grpRemoteVideo" Header="Remote video" Height="506" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="33,0.333,0,0" Width="668" Grid.Row="1">
+            <Grid Margin="0,0,-12,-13.333">
+                <video:VideoViewerWPF Width="640" Height="480" HorizontalAlignment="Left" Margin="4,0,0,0" Name="remoteVideoViewer" VerticalAlignment="Top" >
+                </video:VideoViewerWPF>
+                <GroupBox x:Name="grpLocalVideo" Header="Local video" Height="192" VerticalAlignment="Top" Margin="0,288,0,0" HorizontalAlignment="Right" Width="196">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="73*"/>
+                            <RowDefinition Height="12*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="96*" />
+                            <ColumnDefinition Width="94*" />
+                        </Grid.ColumnDefinitions>
+                        <video:VideoViewerWPF Width="180" Height="135" HorizontalAlignment="Left" Margin="4,7,0,0" x:Name="localVideoViewer" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        <Button Content="Start camera" HorizontalAlignment="Left" x:Name="btnStartVideo" VerticalAlignment="Top" Width="85" Click="btnStartVideo_Click" Grid.Row="1" Margin="4,0,0,0"  />
+                        <Button Content="Stop camera" HorizontalAlignment="Right"  x:Name="btnStopVideo" VerticalAlignment="Top" Width="85" Click="btnStopVideo_Click" Grid.Column="1" Grid.Row="1" />
+                    </Grid>
+                </GroupBox>
             </Grid>
         </GroupBox>
-        <TabControl Height="198" HorizontalAlignment="Left" Margin="180,0,0,0" Name="tabControl1" VerticalAlignment="Top" Width="574" Grid.Row="3" Grid.Column="1">
-            <TabItem Header="Active Calls" Name="tiPhoneCalls">
-                <Grid>
-                    <ListView Name="lvPhoneCalls" ItemsSource="{Binding Model.PhoneCalls}" SelectedItem="{Binding Model.SelectedCall}" Margin="1,0" Height="136.04" VerticalAlignment="Top">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Width="180" Header="Phone Line" DisplayMemberBinding="{Binding Line.SIPAccount, Converter={StaticResource SIPAccountToStringConverter}}" />
-                                <GridViewColumn Width="180" Header="Other Party" DisplayMemberBinding="{Binding OtherParty}" />
-                                <GridViewColumn Width="55" Header="Direction" DisplayMemberBinding="{Binding IsIncoming, Converter={StaticResource IncomingToDirectionConverter}}" />
-                                <GridViewColumn Width="130" Header="Call State" DisplayMemberBinding="{Binding ReasonOfState}" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Button Name="btnAnswer" Content="Answer" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="1,141.04,0,0" Click="btnAnswer_Click" />
-                    <Button Name="btnReject" Content="Reject" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="69,141.04,0,0" Click="btnReject_Click" />
-                    <Button Name="btnHangup" Content="Hang up" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="137,141.04,0,0" Click="btnHangup_Click" />
-                    <Button Name="btnHold" Content="Hold" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Click="btnHold_Click" Margin="205,141.04,0,0" />
-                    <Button Name="btnUnhold" Content="Unhold" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="273,141.04,0,0" Click="btnUnhold_Click" />
-                    <Button Name="btnForward" Content="Forward" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="409,141.04,0,0" Click="btnForward_Click" />
-                    <Button Name="btnTransfer" Content="Transfer" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="341,141.04,0,0" Click="btnTransfer_Click" />
-                    <ComboBox Name="cbAudioVideoCall" ItemsSource="{Binding Model.CallTypes, Mode=OneWay}" SelectedItem="{Binding ElementName=lvPhoneCalls, Path=SelectedItem.SupportedMediaTypes, Mode=OneWay, Converter={StaticResource SupportedMediaTypesToCallTypeConverter}}" Height="23" HorizontalAlignment="Left" Margin="477,141.04,0,0" VerticalAlignment="Top" Width="83" SelectionChanged="cbAudioVideoCall_SelectionChanged" />
-                </Grid>
-            </TabItem>
-            <TabItem Header="Call History" Name="tiCallHistory">
-                <Grid>
-                    <ListView Name="lvCallHistory" ItemsSource="{Binding Model.CallHistory.List}" Margin="1,0,7,0" Height="136" VerticalAlignment="Top" MouseDoubleClick="lvCallHistory_MouseDoubleClick">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Width="180" Header="Phone Line" DisplayMemberBinding="{Binding PhoneLine}" />
-                                <GridViewColumn Width="180" Header="Other Party" DisplayMemberBinding="{Binding OtherParty}" />
-                                <GridViewColumn Width="55" Header="Direction" DisplayMemberBinding="{Binding IsIncoming, Converter={StaticResource IncomingToDirectionConverter}}" />
-                                <GridViewColumn Width="130" Header="Call State" DisplayMemberBinding="{Binding ReasonOfState}" />
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Button Name="btnRedial" Content="Redial" Height="23" HorizontalAlignment="Left" Margin="1,141,0,0" VerticalAlignment="Top" Width="63" Click="btnRedial_Click" />
-                    <Button Name="btnClearCallHistory" Content="Clear history" Height="23" HorizontalAlignment="Left" Margin="69,141,0,0" VerticalAlignment="Top" Width="81" Click="btnClearCallHistory_Click" />
-                </Grid>
-            </TabItem>
-            <TabItem Header="Messages" Name="tiMessages">
-                <Grid>
-                    <Button Content="Clear" Name="btnClear" HorizontalAlignment="Left" Margin="479,107.08,0,0" VerticalAlignment="Top" Width="75" Click="btnClear_Click"/>
-                    <Button Content="Send" Name="btnSend" HorizontalAlignment="Left" Margin="479,134.08,0,0" VerticalAlignment="Top" Width="75" Click="btnSend_Click"/>
-                    <ListBox Height="101.08" Margin="1,0,7,0" VerticalAlignment="Top" ItemsSource="{Binding Model.InstantMessages}"/>
-                    <Label Content="To:" HorizontalAlignment="Left" Margin="4.083,106.08,0,0" VerticalAlignment="Top"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="68.373,107.08,0,0" TextWrapping="Wrap" Text="{Binding Recipient}" VerticalAlignment="Top" Width="130"/>
-                    <Label Content="Message:" HorizontalAlignment="Left" Margin="4.083,133.08,0,0" VerticalAlignment="Top"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="68.373,135.08,0,0" TextWrapping="Wrap" Text="{Binding InstantMessage}" VerticalAlignment="Top" Width="405.627"/>
-                </Grid>
-            </TabItem>
-        </TabControl>
-        <GroupBox Header="Dialpad" Height="198" HorizontalAlignment="Left" Name="grpDialPad" VerticalAlignment="Top" Width="177" Grid.Row="3" Grid.Column="1">
-            <Grid>
+        <GroupBox Header="Dialpad" Height="130" HorizontalAlignment="Left" Name="grpDialPad" VerticalAlignment="Top" Width="177" Grid.Row="1" Margin="776,10.333,0,0">
+            <Grid Margin="0,10,0.333,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="25*" />
+                    <RowDefinition Height="Auto" MinHeight="30.667" />
+                    <RowDefinition Height="112.666666666667" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="55" />
-                    <ColumnDefinition Width="55" />
-                    <ColumnDefinition Width="55" />
+                    <ColumnDefinition Width="164" />
                     <ColumnDefinition Width="70" />
                     <ColumnDefinition Width="101*" />
                 </Grid.ColumnDefinitions>
-                <TextBox Name="tbDial" Text="{Binding DialNumber}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="158" Margin="2,5,0,0" HorizontalContentAlignment="Right" Grid.ColumnSpan="3" />
-                <Button Name="btnDialAudio" Content="Dial (A)" ToolTip="Make a call using only audio channel" Grid.Row="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Click="btnDialAudio_Click" />
-                <Button Name="btnDialVideo" Content="Dial (V)" ToolTip="Make a call using audio and video channels" Grid.Row="1" Grid.Column="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Click="btnDialVideo_Click" />
-                <Button Name="btnDialPadIP" Content="Dial (IP)" ToolTip="Make a call directly to an IP address" Grid.Row="1" Grid.Column="2" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Click="btnDialPadIP_Click" />
-                <Button Name="btnKey1" Content="1" Tag="1" Grid.Row="2" Grid.Column="0" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
-                <Button Name="btnKey2" Content="2" Tag="2" Grid.Row="2" Grid.Column="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
-                <Button Name="btnKey3" Content="3" Tag="3" Grid.Row="2" Grid.Column="2" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
-                <Button Name="btnKey4" Content="4" Tag="4" Grid.Row="3" Grid.Column="0" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
-                <Button Name="btnKey5" Content="5" Tag="5" Grid.Row="3" Grid.Column="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
-                <Button Name="btnKey6" Content="6" Tag="6" Grid.Row="3" Grid.Column="2" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
-                <Button Name="btnKey7" Content="7" Tag="7" Grid.Row="4" Grid.Column="0" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
-                <Button Name="btnKey8" Content="8" Tag="8" Grid.Row="4" Grid.Column="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
-                <Button Name="btnKey9" Content="9" Tag="9" Grid.Row="4" Grid.Column="2" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
-                <Button Name="btnKeyStar" Content="*" Tag="10" Grid.Row="5" Grid.Column="0" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
-                <Button Name="btnKey0" Content="0" Tag="0" Grid.Row="5" Grid.Column="1" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
-                <Button Name="btnKeyHash" Content="#" Tag="11" Grid.Row="5" Grid.Column="2" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" FontSize="14" FontWeight="Bold" Click="btnKeyPad_Click" PreviewMouseUp="btnKeyPad_MouseUp" PreviewMouseDown="btnKeyPad_MouseDown" />
+                <TextBox Name="tbDial" Text="{Binding DialNumber}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="158" Margin="2,5,0,0" HorizontalContentAlignment="Right" Height="24" />
+                <Button Name="btnDialVideo" Content="Dial (V)" ToolTip="Make a call using audio and video channels" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" Width="64" Click="btnDialVideo_Click" Margin="5,2.667,0,0" Grid.Row="1" />
+                <Button x:Name="btnHangup" Content="Hang up" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="6,3.333,0,0" Click="btnHangup_Click" Grid.Row="2" />
+                <Button x:Name="btnAnswer" Content="Answer" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Margin="91,3.667,0,0" Click="btnAnswer_Click" Grid.Row="1" />
             </Grid>
         </GroupBox>
-        <GroupBox Name="grpPhoneLine" Header="Phone line settings" HorizontalAlignment="Left"  Width="323" Grid.Column="1" Grid.Row="1" Margin="431,0,0,5" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="118" />
-                    <ColumnDefinition Width="182" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="8" />
-                    <RowDefinition Height="26" />
-                    <RowDefinition Height="26" />
-                    <RowDefinition Height="26" />
-                    <RowDefinition Height="26"/>
-                    <RowDefinition Height="7*"/>
-                </Grid.RowDefinitions>
-                <CheckBox Name="chkbAutoAnswer" Content="Auto-answer" IsChecked="{Binding ElementName=cbPhoneLines, Path=SelectedItem.AutoAnswer}" Grid.Column="1" Grid.Row="3" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                <CheckBox Name="chkbDoNotDisturb" Content="DND" IsChecked="{Binding ElementName=cbPhoneLines, Path=SelectedItem.DoNotDisturb}" Grid.Column="1" Grid.Row="3" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="100.601,5,-41.519,5" />
-                <Label Grid.Row="1" Content="Keep-alive mode:" HorizontalAlignment="Right" VerticalAlignment="Center" />
-                <ComboBox Name="cbKeepAlive" Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" ItemsSource="{Binding KeepAliveValues}" SelectedItem="{Binding ElementName=cbPhoneLines, Path=SelectedItem.KeepAliveMode}" VerticalAlignment="Center" Width="100" Margin="0,1.5"  />
-                <Label Grid.Row="2" Content="Keep-alive interval:" HorizontalAlignment="Right" VerticalAlignment="Center" />
-                <TextBox Name="tbKeepAliveInterval" Grid.Column="1" Grid.Row="2" Text="{Binding ElementName=cbPhoneLines, Path=SelectedItem.KeepAliveInterval}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="40" Height="22" Margin="0,2" />
-                <Label Grid.Column="1" Grid.Row="2" Content="sec" Height="23" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40,1.5,0,1.5" Width="27" />
-            </Grid>
-        </GroupBox>
-        <Grid Background="Gainsboro" Grid.Row="5" Grid.ColumnSpan="3">
+        <Grid Background="Gainsboro" Grid.Row="2" Margin="0,2.333,-0.333,0.333">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="297" />
                 <ColumnDefinition Width="472" />
@@ -433,70 +347,49 @@
                     </Grid>
                 </TabItem>
             </TabControl>
-            <GroupBox Name="grpLocalVideo" Header="Local video" Height="192" VerticalAlignment="Top" Grid.Column="2" HorizontalAlignment="Left">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="73*"/>
-                        <RowDefinition Height="12*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="96*" />
-                        <ColumnDefinition Width="94*" />
-                    </Grid.ColumnDefinitions>
-                    <video:VideoViewerWPF Width="180" Height="135" HorizontalAlignment="Left" Margin="4,7,0,0" Name="localVideoViewer" VerticalAlignment="Top" Grid.ColumnSpan="2" />
-                    <Button Content="Start camera" HorizontalAlignment="Left" Name="btnStartVideo" VerticalAlignment="Top" Width="85" Click="btnStartVideo_Click" Grid.Row="1" Margin="4,0,0,0"  />
-                    <Button Content="Stop camera" HorizontalAlignment="Right"  Name="btnStopVideo" VerticalAlignment="Top" Width="85" Click="btnStopVideo_Click" Grid.Column="1" Grid.Row="1" />
-                </Grid>
-            </GroupBox>
         </Grid>
-        <GroupBox Grid.Column="1" Header="Phone Lines" HorizontalAlignment="Left" Grid.Row="1" Width="426" Margin="0,0,0,5">
-            <Grid>
+        <GroupBox Header="Phone Lines" HorizontalAlignment="Left" Width="947" Margin="6,7,0,9.667" RenderTransformOrigin="0.493,0.476">
+            <Grid Margin="0,0,-1.333,0" Height="124" VerticalAlignment="Top">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="8"/>
-                    <RowDefinition Height="26"/>
-                    <RowDefinition Height="26"/>
-                    <RowDefinition Height="47*"/>
+                    <RowDefinition Height="46"/>
+                    <RowDefinition Height="85.333"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="59*"/>
-                    <ColumnDefinition Width="197*"/>
-                    <ColumnDefinition Width="154*"/>
+                    <ColumnDefinition Width="51*"/>
+                    <ColumnDefinition Width="243*"/>
+                    <ColumnDefinition Width="331*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Name="cbPhoneLines" HorizontalAlignment="Left" ItemsSource="{Binding Model.PhoneLines, Converter={StaticResource SIPAccountToStringConverter}}" SelectedItem="{Binding Model.SelectedLine}" Height="25" VerticalAlignment="Bottom" Grid.Column="1" Width="193" Grid.Row="1">
+                <ComboBox Name="cbPhoneLines" HorizontalAlignment="Left" ItemsSource="{Binding Model.PhoneLines, Converter={StaticResource SIPAccountToStringConverter}}" SelectedItem="{Binding Model.SelectedLine}" Height="25" VerticalAlignment="Bottom" Width="193" Margin="1.333,0,0,15" Grid.Column="1">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Path=SIPAccount, Converter={StaticResource SIPAccountToStringConverter}}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Label Content="Line:" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="0" />
-                <Button Name="btnAddPhoneLine" Content="Add SIP account" HorizontalAlignment="Left" VerticalAlignment="Center" Width="96" Click="btnAddPhoneLine_Click" Grid.Column="2" Grid.Row="1" />
-                <Button Name="btnRemovePhoneLine" Content="Remove" HorizontalAlignment="Left" Margin="99,0,0,0" VerticalAlignment="Center" Width="53" Click="btnRemovePhoneLine_Click" Grid.Column="2" Grid.Row="1" />
-                <Label Content="Status:" Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="0" Margin="0,1" />
-                <TextBox Name="tbPhoneLineStatus" Text="{Binding ElementName=cbPhoneLines, Path=SelectedItem.LineStateReason, Mode=OneWay}" Grid.Row="2" Grid.Column="1" IsReadOnly="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="193" />
-                <Button Name="btnMessageSummary" Content="{Binding ElementName=cbPhoneLines, Path=SelectedItem, Mode=OneWay, Converter={StaticResource MessageSummaryToStringConverter}}" IsEnabled="{Binding ElementName=cbPhoneLines, Path=SelectedItem, Mode=OneWay, Converter={StaticResource MessageSummaryToBoolConverter}}" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Width="96" Click="btnMessageSummary_Click" Margin="0,3" />
-                <Button Name="btnRegister" Content="Register" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnRegister_Click" Grid.Row="3" Grid.Column="1" Margin="38,0,0,0" />
-                <Button Name="btnUnRegister" Content="Unregister" Height="23" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnUnregister_Click" Grid.Row="3" Grid.Column="1" Margin="118,0,0,0" />
-            </Grid>
-        </GroupBox>
-        <GroupBox Grid.Column="2" Header="Network" HorizontalAlignment="Left" Grid.Row="1" Width="196" Margin="0,0,0,5">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="10"/>
-                    <RowDefinition Height="26"/>
-                    <RowDefinition Height="26"/>
-                    <RowDefinition Height="26"/>
-                    <RowDefinition Height="9*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="55*"/>
-                    <ColumnDefinition Width="129*"/>
-                </Grid.ColumnDefinitions>
-                <Button Content="Discover NAT" HorizontalAlignment="Left" VerticalAlignment="Top" Width="82" Click="btnNatDiscovery_Click" Grid.Row="3" Margin="14,0,0,0" Grid.ColumnSpan="2" Height="22"/>
-                <Button Content="Apply" HorizontalAlignment="Right" VerticalAlignment="Top" Width="82" Click="btnApply_Click" Grid.Row="3" Grid.Column="1"  Height="22"/>
-                <Label Content="Local IP:" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Top" />
-                <ComboBox Grid.Column="1" ItemsSource="{Binding Model.LocalIPAddressList}" IsEnabled="{Binding ElementName=chkbUseSelectedIP, Path=IsChecked}" SelectedItem="{Binding Model.LocalIP}" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,2" Width="129" />
-                <CheckBox Name="chkbUseSelectedIP" Content="Use selected IP" IsChecked="{Binding UseFixIP}" Grid.Column="1" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" Margin="0,5" />
+                <Label Content="Line:" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Column="0" Height="26" Margin="0,0,2.667,17" Width="34" RenderTransformOrigin="0.5,0.5" >
+                    <Label.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="3.26"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Label.RenderTransform>
+                </Label>
+                <Button Name="btnAddPhoneLine" Content="Add SIP account" HorizontalAlignment="Left" VerticalAlignment="Center" Width="96" Click="btnAddPhoneLine_Click" Grid.Column="2" Margin="261.333,10,0,16" Height="20" />
+                <Label Content="Status:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="1" Margin="0,6,115.667,16" Height="24" Width="45" />
+                <TextBox Name="tbPhoneLineStatus" Text="{Binding ElementName=cbPhoneLines, Path=SelectedItem.LineStateReason, Mode=OneWay}" IsReadOnly="True" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="193" Height="18" Margin="248.333,10,0,18" Grid.Column="1" Grid.ColumnSpan="2" />
+                <Button Name="btnRegister" Content="Register" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnRegister_Click" Grid.Column="2" Margin="146.333,10,0,0" />
+                <ListView Name="lvPhoneCalls" ItemsSource="{Binding Model.PhoneCalls}" SelectedItem="{Binding Model.SelectedCall}" Margin="0.333,9.667,309.333,0" Height="54" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="1">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="180" Header="Phone Line" DisplayMemberBinding="{Binding Line.SIPAccount, Converter={StaticResource SIPAccountToStringConverter}}" />
+                            <GridViewColumn Width="180" Header="Other Party" DisplayMemberBinding="{Binding OtherParty}" />
+                            <GridViewColumn Width="55" Header="Direction" DisplayMemberBinding="{Binding IsIncoming, Converter={StaticResource IncomingToDirectionConverter}}" />
+                            <GridViewColumn Width="130" Header="Call State" DisplayMemberBinding="{Binding ReasonOfState}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </Grid>
         </GroupBox>
     </Grid>
