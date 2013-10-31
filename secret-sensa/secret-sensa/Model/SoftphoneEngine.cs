@@ -180,7 +180,7 @@ namespace secret_sensa.Model
         /// </summary>
         internal void InitSoftphone(bool useFixIP)
         {
-            Logger.Open(LogLevel.Debug); // open logger
+            Logger.Open(LogLevel.Trace); // open logger
             // if the softphone is already created, then close it
             if (softPhone != null)
             {

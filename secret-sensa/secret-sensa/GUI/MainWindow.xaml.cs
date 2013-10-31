@@ -580,7 +580,6 @@ namespace secret_sensa.GUI
             if (selected == null)
                 return;
 
-            bool forceStart = lvPhoneCalls.HasItems;
             MediaHandlers.ChangeMicrophone(selected);
         }
 
@@ -600,7 +599,6 @@ namespace secret_sensa.GUI
             if (selected == null)
                 return;
 
-            bool forceStart = lvPhoneCalls.HasItems;
             MediaHandlers.ChangeSpeaker(selected);
         }
 
