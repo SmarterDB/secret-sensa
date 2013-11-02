@@ -156,7 +156,7 @@ namespace secret_sensa.GUI
             Model.PhoneLineStateChanged += (Model_PhoneLineStateChanged);
             Model.PhoneCallStateChanged += (Model_PhoneCallStateChanged);
             //Model.MessageSummaryReceived += (Model_MessageSummaryReceived);
-            Model.NatDiscoveryFinished += (Model_NatDiscoveryFinished);
+            //Model.NatDiscoveryFinished += (Model_NatDiscoveryFinished);
             Model.CallInstantMessageReceived += (Model_CallInstantMessageReceived);
             Model.MediaHandlers.MicrophoneStopped += MediaHandlers_MicrophoneStopped;
             Model.MediaHandlers.SpeakerStopped += MediaHandlers_SpeakerStopped;
@@ -178,7 +178,7 @@ namespace secret_sensa.GUI
             Model.PhoneLineStateChanged -= (Model_PhoneLineStateChanged);
             Model.PhoneCallStateChanged -= (Model_PhoneCallStateChanged);
             //Model.MessageSummaryReceived -= (Model_MessageSummaryReceived);
-            Model.NatDiscoveryFinished -= (Model_NatDiscoveryFinished);
+            //Model.NatDiscoveryFinished -= (Model_NatDiscoveryFinished);
             Model.CallInstantMessageReceived -= (Model_CallInstantMessageReceived);
             Model.Dispose();
         }
@@ -218,13 +218,13 @@ namespace secret_sensa.GUI
             MessageBox.Show(sb.ToString());
         }
 
-        private void Model_NatDiscoveryFinished(object sender, GEventArgs<NatInfo> e)
-        {
-            NatInfo info = e.Item;
-            natDiscoveryWin.Dispatcher.Invoke(new Action(() => natDiscoveryWin.Close()));
+        //private void Model_NatDiscoveryFinished(object sender, GEventArgs<NatInfo> e)
+        //{
+        //    NatInfo info = e.Item;
+        //    natDiscoveryWin.Dispatcher.Invoke(new Action(() => natDiscoveryWin.Close()));
 
-            MessageBox.Show(string.Format("NAT discovery finished. NAT Type: {0}, Public address: {1}", info.NatType, info.PublicAddress));
-        }
+        //    MessageBox.Show(string.Format("NAT discovery finished. NAT Type: {0}, Public address: {1}", info.NatType, info.PublicAddress));
+        //}
 
         private void MediaHandlers_SpeakerStopped(object sender, EventArgs e)
         {
@@ -295,39 +295,39 @@ namespace secret_sensa.GUI
 
         #region About
 
-        private void btnAboutOzeki_Click(object sender, RoutedEventArgs e)
-        {
-            AboutWindow box = new AboutWindow(this);
-            box.ShowDialog();
-        }
+        //private void btnAboutOzeki_Click(object sender, RoutedEventArgs e)
+        //{
+        //    AboutWindow box = new AboutWindow(this);
+        //    box.ShowDialog();
+        //}
 
-        private void btnProjects_Click(object sender, RoutedEventArgs e)
-        {
-            var myDocuments = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Ozeki"), "Ozeki VoIP SDK");
+        //private void btnProjects_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var myDocuments = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Ozeki"), "Ozeki VoIP SDK");
 
-            OpenUrl(myDocuments);
-        }
+        //    OpenUrl(myDocuments);
+        //}
 
-        private void btnWebsite_Click(object sender, RoutedEventArgs e)
-        {
-            OpenUrl("http://www.voip-sip-sdk.com");
-        }
+        //private void btnWebsite_Click(object sender, RoutedEventArgs e)
+        //{
+        //    OpenUrl("http://www.voip-sip-sdk.com");
+        //}
 
-        private void btnHelp_Click(object sender, RoutedEventArgs e)
-        {
-            OpenUrl("file://" + SDKPath + "Documentation\\SDKHelp\\index.html");
-        }
+        //private void btnHelp_Click(object sender, RoutedEventArgs e)
+        //{
+        //    OpenUrl("file://" + SDKPath + "Documentation\\SDKHelp\\index.html");
+        //}
 
-        private void OpenUrl(string url)
-        {
-            try
-            {
-                Process.Start(url);
-            }
-            catch (Exception e)
-            {
-            }
-        }
+        //private void OpenUrl(string url)
+        //{
+        //    try
+        //    {
+        //        Process.Start(url);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //    }
+        //}
 
         private string path;
         private string SDKPath
@@ -356,28 +356,28 @@ namespace secret_sensa.GUI
 
         #region Dialpad
 
-        private void btnKeyPad_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            if (button == null)
-                return;
+        //private void btnKeyPad_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Button button = sender as Button;
+        //    if (button == null)
+        //        return;
 
-            // if no calls selected, extend the dial number
-            if (Model.SelectedCall == null)
-                DialNumber += button.Content.ToString();
-        }
+        //    // if no calls selected, extend the dial number
+        //    if (Model.SelectedCall == null)
+        //        DialNumber += button.Content.ToString();
+        //}
 
-        private void btnKeyPad_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Button button = sender as Button;
-            if (button == null)
-                return;
+        //private void btnKeyPad_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    Button button = sender as Button;
+        //    if (button == null)
+        //        return;
 
-            // start DTMF
-            int signal;
-            if (int.TryParse(button.Tag.ToString(), out signal))
-                Model.StartDtmfSignal(signal);
-        }
+        //    // start DTMF
+        //    int signal;
+        //    if (int.TryParse(button.Tag.ToString(), out signal))
+        //        Model.StartDtmfSignal(signal);
+        //}
 
         private void btnKeyPad_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -391,20 +391,20 @@ namespace secret_sensa.GUI
                 Model.StopDtmfSignal(signal);
         }
 
-        private void btnDialAudio_Click(object sender, RoutedEventArgs e)
-        {
-            Dial(CallType.Audio, false);
-        }
+        //private void btnDialAudio_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Dial(CallType.Audio, false);
+        //}
 
         private void btnDialVideo_Click(object sender, RoutedEventArgs e)
         {
             Dial(CallType.AudioVideo, false);
         }
 
-        private void btnDialPadIP_Click(object sender, RoutedEventArgs e)
-        {
-            Dial(CallType.Audio, true);
-        }
+        //private void btnDialPadIP_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Dial(CallType.Audio, true);
+        //}
 
         private void Dial(CallType callType, bool dialIP)
         {
@@ -467,53 +467,53 @@ namespace secret_sensa.GUI
             Model.UnholdCall();
         }
 
-        private void btnForward_Click(object sender, RoutedEventArgs e)
-        {
-            if (Model.SelectedCall == null)
-                return;
+        //private void btnForward_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (Model.SelectedCall == null)
+        //        return;
 
-            if (!Model.SelectedCall.IsIncoming || !Model.SelectedCall.CallState.IsRinging())
-                return;
+        //    if (!Model.SelectedCall.IsIncoming || !Model.SelectedCall.CallState.IsRinging())
+        //        return;
 
-            ForwardWindow forwardWin = new ForwardWindow(this);
-            bool? ok = forwardWin.ShowDialog();
-            if (ok != null && ok == true)
-            {
-                string target = forwardWin.Target;
+        //    ForwardWindow forwardWin = new ForwardWindow(this);
+        //    bool? ok = forwardWin.ShowDialog();
+        //    if (ok != null && ok == true)
+        //    {
+        //        string target = forwardWin.Target;
 
-                // forward call
-                Model.ForwardCall(target);
-            }
-        }
+        //        // forward call
+        //        Model.ForwardCall(target);
+        //    }
+        //}
 
-        private void btnTransfer_Click(object sender, RoutedEventArgs e)
-        {
-            if (Model.SelectedCall == null)
-                return;
+        //private void btnTransfer_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (Model.SelectedCall == null)
+        //        return;
 
-            if (!Model.SelectedCall.CallState.IsInCall())
-                return;
+        //    if (!Model.SelectedCall.CallState.IsInCall())
+        //        return;
 
-            TransferModel transferSettings = new TransferModel(Model.PhoneCalls, Model.SelectedCall);
-            TransferWindow tranferWin = new TransferWindow(this, transferSettings);
-            bool? ok = tranferWin.ShowDialog();
-            if (ok != null && ok == true)
-            {
-                // blind transfer
-                if (transferSettings.TransferMode == TransferMode.Blind)
-                {
-                    Model.BlindTransfer(transferSettings.BlindTransferTarget);
-                    return;
-                }
+        //    TransferModel transferSettings = new TransferModel(Model.PhoneCalls, Model.SelectedCall);
+        //    TransferWindow tranferWin = new TransferWindow(this, transferSettings);
+        //    bool? ok = tranferWin.ShowDialog();
+        //    if (ok != null && ok == true)
+        //    {
+        //        // blind transfer
+        //        if (transferSettings.TransferMode == TransferMode.Blind)
+        //        {
+        //            Model.BlindTransfer(transferSettings.BlindTransferTarget);
+        //            return;
+        //        }
 
-                // attended transfer
-                if (transferSettings.TransferMode == TransferMode.Attended)
-                {
-                    Model.AttendedTransfer(transferSettings.AttendedTransferTarget);
-                    return;
-                }
-            }
-        }
+        //        // attended transfer
+        //        if (transferSettings.TransferMode == TransferMode.Attended)
+        //        {
+        //            Model.AttendedTransfer(transferSettings.AttendedTransferTarget);
+        //            return;
+        //        }
+        //    }
+        //}
 
         //private void cbAudioVideoCall_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{
@@ -927,15 +927,6 @@ namespace secret_sensa.GUI
             Model.InitSoftphone(UseFixIP);
         }
 
-        NatDiscoveryWindow natDiscoveryWin;
-        private void btnNatDiscovery_Click(object sender, RoutedEventArgs e)
-        {
-            Model.BeginNatDiscovery();
-
-            natDiscoveryWin = new NatDiscoveryWindow(this);
-            natDiscoveryWin.ShowDialog();
-        }
-
         #endregion
 
         //private void btnSend_Click(object sender, RoutedEventArgs e)
@@ -949,10 +940,10 @@ namespace secret_sensa.GUI
         //    InstantMessage = "";
         //}
 
-        private void btnClear_Click(object sender, RoutedEventArgs e)
-        {
-            Model.ClearInstantMessages();
-        }
+        //private void btnClear_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Model.ClearInstantMessages();
+        //}
 
         private void ShowLicenseError(string message)
         {
