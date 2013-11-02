@@ -176,7 +176,7 @@ namespace secret_sensa.Model
             if (Speaker != null)
             {
                 SubscribeToSpeakerEvents();
-                Speaker.Start();
+                //Speaker.Start();
             }
 
             initialized = true;

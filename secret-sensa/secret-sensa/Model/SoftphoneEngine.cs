@@ -12,6 +12,7 @@ using System.ComponentModel;
 using Ozeki.Network.Nat;
 using System.Net;
 using Ozeki.Common.Logger;
+using secret_sensa.GUI.GUIModels;
 
 namespace secret_sensa.Model
 {
@@ -115,6 +116,10 @@ namespace secret_sensa.Model
         /// </summary>
         public ObservableList<string> InstantMessages { get; set; }
 
+        //Az AccountInfo-t átköltöztetjük ide, hogy ne kelljen külön
+        //ablakra ugrani
+        public AccountModel AccountModel { get; private set; }
+
         #endregion
 
         #region Events
@@ -163,6 +168,15 @@ namespace secret_sensa.Model
             InstantMessages = new ObservableList<string>();
             CallHistory = new CallHistory();
             CallTypes = new List<CallType> {CallType.Audio, CallType.AudioVideo};
+            AccountModel = new AccountModel()
+            {
+                DisplayName = Properties.Settings.Default.DisplayName,
+                RegisterName = Properties.Settings.Default.RegisterName,
+                Domain = Properties.Settings.Default.Domain,
+                UserName = Properties.Settings.Default.UserName,
+                OutboundProxy = Properties.Settings.Default.OutboundProxy,
+                Password = Properties.Settings.Default.Password
+            };
 
             // create softphone
             MinPort = 20000;

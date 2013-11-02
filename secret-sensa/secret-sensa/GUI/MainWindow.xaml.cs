@@ -34,12 +34,13 @@ namespace secret_sensa.GUI
 
         public string TitleString
         {
-            get { return string.Format("Ozeki VoIP SIP SDK - Demo Application {0}", Assembly.GetExecutingAssembly().GetName().Version); }
+            get { return string.Format("COMIC.SYS Ozeki Demo {0}", Assembly.GetExecutingAssembly().GetName().Version); }
         }
 
         public IPhoneLine SelectedLine
         {
-            get { return cbPhoneLines.SelectedItem as IPhoneLine; }
+            get { return Model.SelectedLine ; }
+            //get { return cbPhoneLines.SelectedItem as IPhoneLine; }
         }
 
         private string dialNumber;
@@ -156,8 +157,8 @@ namespace secret_sensa.GUI
             Model.PhoneLineStateChanged += (Model_PhoneLineStateChanged);
             Model.PhoneCallStateChanged += (Model_PhoneCallStateChanged);
             //Model.MessageSummaryReceived += (Model_MessageSummaryReceived);
-            Model.NatDiscoveryFinished += (Model_NatDiscoveryFinished);
-            Model.CallInstantMessageReceived += (Model_CallInstantMessageReceived);
+            //Model.NatDiscoveryFinished += (Model_NatDiscoveryFinished);
+            //Model.CallInstantMessageReceived += (Model_CallInstantMessageReceived);
             Model.MediaHandlers.MicrophoneStopped += MediaHandlers_MicrophoneStopped;
             Model.MediaHandlers.SpeakerStopped += MediaHandlers_SpeakerStopped;
         }
@@ -178,8 +179,8 @@ namespace secret_sensa.GUI
             Model.PhoneLineStateChanged -= (Model_PhoneLineStateChanged);
             Model.PhoneCallStateChanged -= (Model_PhoneCallStateChanged);
             //Model.MessageSummaryReceived -= (Model_MessageSummaryReceived);
-            Model.NatDiscoveryFinished -= (Model_NatDiscoveryFinished);
-            Model.CallInstantMessageReceived -= (Model_CallInstantMessageReceived);
+            //Model.NatDiscoveryFinished -= (Model_NatDiscoveryFinished);
+            //Model.CallInstantMessageReceived -= (Model_CallInstantMessageReceived);
             Model.Dispose();
         }
 
@@ -189,7 +190,8 @@ namespace secret_sensa.GUI
 
         private void Model_PhoneLineStateChanged(object sender, GEventArgs<IPhoneLine> e)
         {
-            tbPhoneLineStatus.Dispatcher.Invoke(new Action(() => tbPhoneLineStatus.GetBindingExpression(TextBox.TextProperty).UpdateTarget()));
+            //tbPhoneLineStatus.Dispatcher.Invoke(new Action(() => tbPhoneLineStatus.GetBindingExpression(TextBox.TextProperty).UpdateTarget()));
+            tbPhoneLineStatus.Dispatcher.Invoke(new Action(() => tbPhoneLineStatus.GetBindingExpression(Label.ContentProperty).UpdateTarget()));
         }
 
         private void Model_PhoneCallStateChanged(object sender, GEventArgs<IPhoneCall> e)
@@ -206,25 +208,25 @@ namespace secret_sensa.GUI
         //    }));
         //}
 
-        private void Model_CallInstantMessageReceived(object sender, PhoneCallInstantMessageArgs e)
-        {
-            string sipAccount = string.Format("{0}@{1}", e.PhoneCall.PhoneLine.SIPAccount.UserName, e.PhoneCall.PhoneLine.SIPAccount.DomainServerHost);
+        //private void Model_CallInstantMessageReceived(object sender, PhoneCallInstantMessageArgs e)
+        //{
+        //    string sipAccount = string.Format("{0}@{1}", e.PhoneCall.PhoneLine.SIPAccount.UserName, e.PhoneCall.PhoneLine.SIPAccount.DomainServerHost);
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append("Instant message received\r\n");
-            sb.Append(string.Format("Call: {0} - {1}\r\n", sipAccount, e.PhoneCall.DialInfo));
-            sb.Append(string.Format("Message: {0}", e.Message.Data));
+        //    StringBuilder sb = new StringBuilder();
+        //    sb.Append("Instant message received\r\n");
+        //    sb.Append(string.Format("Call: {0} - {1}\r\n", sipAccount, e.PhoneCall.DialInfo));
+        //    sb.Append(string.Format("Message: {0}", e.Message.Data));
 
-            MessageBox.Show(sb.ToString());
-        }
+        //    MessageBox.Show(sb.ToString());
+        //}
 
-        private void Model_NatDiscoveryFinished(object sender, GEventArgs<NatInfo> e)
-        {
-            NatInfo info = e.Item;
-            natDiscoveryWin.Dispatcher.Invoke(new Action(() => natDiscoveryWin.Close()));
+        //private void Model_NatDiscoveryFinished(object sender, GEventArgs<NatInfo> e)
+        //{
+        //    NatInfo info = e.Item;
+        //    natDiscoveryWin.Dispatcher.Invoke(new Action(() => natDiscoveryWin.Close()));
 
-            MessageBox.Show(string.Format("NAT discovery finished. NAT Type: {0}, Public address: {1}", info.NatType, info.PublicAddress));
-        }
+        //    MessageBox.Show(string.Format("NAT discovery finished. NAT Type: {0}, Public address: {1}", info.NatType, info.PublicAddress));
+        //}
 
         private void MediaHandlers_SpeakerStopped(object sender, EventArgs e)
         {
@@ -245,28 +247,42 @@ namespace secret_sensa.GUI
 
         #region PhoneLine
 
-        private void btnAddPhoneLine_Click(object sender, RoutedEventArgs e)
-        {
-            AccountModel model = new AccountModel();
-            AccountWindow accountWin = new AccountWindow(this, model);
-            bool? ok = accountWin.ShowDialog();
+        //private void btnAddPhoneLine_Click(object sender, RoutedEventArgs e)
+        //{
+        //    AccountModel model = new AccountModel();
+        //    AccountWindow accountWin = new AccountWindow(this, model);
+        //    bool? ok = accountWin.ShowDialog();
 
-            if (ok != null && ok == true)
-            {
-                var line = Model.AddPhoneLine(model.SIPAccount, model.TransportType, model.NatConfig, model.SRTPMode);
+        //    if (ok != null && ok == true)
+        //    {
+        //        var line = Model.AddPhoneLine(model.SIPAccount, model.TransportType, model.NatConfig, model.SRTPMode);
 
-                if (Model.SelectedLine == null)
-                    Model.SelectedLine = line;
-            }
-        }
+        //        if (Model.SelectedLine == null)
+        //            Model.SelectedLine = line;
+        //    }
+        //}
 
-        private void btnRemovePhoneLine_Click(object sender, RoutedEventArgs e)
-        {
-            Model.RemovePhoneLine();
-        }
+        //private void btnRemovePhoneLine_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Model.RemovePhoneLine();
+        //}
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
+            if (!Validate("User name", Model.AccountModel.UserName))
+                return;
+
+            if (!Validate("Register name", Model.AccountModel.RegisterName))
+                return;
+
+            if (!Validate("Domain", Model.AccountModel.Domain))
+                return;
+
+            var line = Model.AddPhoneLine(Model.AccountModel.SIPAccount, Model.AccountModel.TransportType, Model.AccountModel.NatConfig, Model.AccountModel.SRTPMode);
+
+            if (Model.SelectedLine == null)
+                Model.SelectedLine = line;
+
             try
             {
                 Model.RegisterPhoneLine();
@@ -276,6 +292,18 @@ namespace secret_sensa.GUI
                 ShowLicenseError(ex.Message);
             }
         }
+
+        private bool Validate(string propertyName, string value)
+        {
+            if (value == null || string.IsNullOrEmpty(value.Trim()))
+            {
+                MessageBox.Show(string.Format("{0} cannot be empty!", propertyName));
+                return false;
+            }
+
+            return true;
+        }
+
 
         private void btnUnregister_Click(object sender, RoutedEventArgs e)
         {
@@ -295,116 +323,116 @@ namespace secret_sensa.GUI
 
         #region About
 
-        private void btnAboutOzeki_Click(object sender, RoutedEventArgs e)
-        {
-            AboutWindow box = new AboutWindow(this);
-            box.ShowDialog();
-        }
+        //private void btnAboutOzeki_Click(object sender, RoutedEventArgs e)
+        //{
+        //    AboutWindow box = new AboutWindow(this);
+        //    box.ShowDialog();
+        //}
 
-        private void btnProjects_Click(object sender, RoutedEventArgs e)
-        {
-            var myDocuments = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Ozeki"), "Ozeki VoIP SDK");
+        //private void btnProjects_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var myDocuments = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Ozeki"), "Ozeki VoIP SDK");
 
-            OpenUrl(myDocuments);
-        }
+        //    OpenUrl(myDocuments);
+        //}
 
-        private void btnWebsite_Click(object sender, RoutedEventArgs e)
-        {
-            OpenUrl("http://www.voip-sip-sdk.com");
-        }
+        //private void btnWebsite_Click(object sender, RoutedEventArgs e)
+        //{
+        //    OpenUrl("http://www.voip-sip-sdk.com");
+        //}
 
-        private void btnHelp_Click(object sender, RoutedEventArgs e)
-        {
-            OpenUrl("file://" + SDKPath + "Documentation\\SDKHelp\\index.html");
-        }
+        //private void btnHelp_Click(object sender, RoutedEventArgs e)
+        //{
+        //    OpenUrl("file://" + SDKPath + "Documentation\\SDKHelp\\index.html");
+        //}
 
-        private void OpenUrl(string url)
-        {
-            try
-            {
-                Process.Start(url);
-            }
-            catch (Exception e)
-            {
-            }
-        }
+        //private void OpenUrl(string url)
+        //{
+        //    try
+        //    {
+        //        Process.Start(url);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //    }
+        //}
 
-        private string path;
-        private string SDKPath
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(path))
-                {
-                    try
-                    {
-                        path =
-                            Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Ozeki").OpenSubKey("VOIP SIP SDK").
-                                GetValue("PATH").ToString();
-                    }
-                    catch
-                    {
-                        path = Environment.CurrentDirectory;
-                    }
-                }
+        //private string path;
+        //private string SDKPath
+        //{
+        //    get
+        //    {
+        //        if (string.IsNullOrEmpty(path))
+        //        {
+        //            try
+        //            {
+        //                path =
+        //                    Registry.LocalMachine.OpenSubKey("SOFTWARE").OpenSubKey("Ozeki").OpenSubKey("VOIP SIP SDK").
+        //                        GetValue("PATH").ToString();
+        //            }
+        //            catch
+        //            {
+        //                path = Environment.CurrentDirectory;
+        //            }
+        //        }
 
-                return path;
-            }
-        }
+        //        return path;
+        //    }
+        //}
 
         #endregion
 
         #region Dialpad
 
-        private void btnKeyPad_Click(object sender, RoutedEventArgs e)
-        {
-            Button button = sender as Button;
-            if (button == null)
-                return;
+        //private void btnKeyPad_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Button button = sender as Button;
+        //    if (button == null)
+        //        return;
 
-            // if no calls selected, extend the dial number
-            if (Model.SelectedCall == null)
-                DialNumber += button.Content.ToString();
-        }
+        //    // if no calls selected, extend the dial number
+        //    if (Model.SelectedCall == null)
+        //        DialNumber += button.Content.ToString();
+        //}
 
-        private void btnKeyPad_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Button button = sender as Button;
-            if (button == null)
-                return;
+        //private void btnKeyPad_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    Button button = sender as Button;
+        //    if (button == null)
+        //        return;
 
-            // start DTMF
-            int signal;
-            if (int.TryParse(button.Tag.ToString(), out signal))
-                Model.StartDtmfSignal(signal);
-        }
+        //    // start DTMF
+        //    int signal;
+        //    if (int.TryParse(button.Tag.ToString(), out signal))
+        //        Model.StartDtmfSignal(signal);
+        //}
 
-        private void btnKeyPad_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            Button button = sender as Button;
-            if (button == null)
-                return;
+        //private void btnKeyPad_MouseUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    Button button = sender as Button;
+        //    if (button == null)
+        //        return;
 
-            // stop DTMF
-            int signal;
-            if (int.TryParse(button.Tag.ToString(), out signal))
-                Model.StopDtmfSignal(signal);
-        }
+        //    // stop DTMF
+        //    int signal;
+        //    if (int.TryParse(button.Tag.ToString(), out signal))
+        //        Model.StopDtmfSignal(signal);
+        //}
 
-        private void btnDialAudio_Click(object sender, RoutedEventArgs e)
-        {
-            Dial(CallType.Audio, false);
-        }
+        //private void btnDialAudio_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Dial(CallType.Audio, false);
+        //}
 
         private void btnDialVideo_Click(object sender, RoutedEventArgs e)
         {
             Dial(CallType.AudioVideo, false);
         }
 
-        private void btnDialPadIP_Click(object sender, RoutedEventArgs e)
-        {
-            Dial(CallType.Audio, true);
-        }
+        //private void btnDialPadIP_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Dial(CallType.Audio, true);
+        //}
 
         private void Dial(CallType callType, bool dialIP)
         {
@@ -457,63 +485,63 @@ namespace secret_sensa.GUI
             Model.HangUpCall();
         }
 
-        private void btnHold_Click(object sender, RoutedEventArgs e)
-        {
-            Model.HoldCall();
-        }
+        //private void btnHold_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Model.HoldCall();
+        //}
 
-        private void btnUnhold_Click(object sender, RoutedEventArgs e)
-        {
-            Model.UnholdCall();
-        }
+        //private void btnUnhold_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Model.UnholdCall();
+        //}
 
-        private void btnForward_Click(object sender, RoutedEventArgs e)
-        {
-            if (Model.SelectedCall == null)
-                return;
+        //private void btnForward_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (Model.SelectedCall == null)
+        //        return;
 
-            if (!Model.SelectedCall.IsIncoming || !Model.SelectedCall.CallState.IsRinging())
-                return;
+        //    if (!Model.SelectedCall.IsIncoming || !Model.SelectedCall.CallState.IsRinging())
+        //        return;
 
-            ForwardWindow forwardWin = new ForwardWindow(this);
-            bool? ok = forwardWin.ShowDialog();
-            if (ok != null && ok == true)
-            {
-                string target = forwardWin.Target;
+        //    ForwardWindow forwardWin = new ForwardWindow(this);
+        //    bool? ok = forwardWin.ShowDialog();
+        //    if (ok != null && ok == true)
+        //    {
+        //        string target = forwardWin.Target;
 
-                // forward call
-                Model.ForwardCall(target);
-            }
-        }
+        //        // forward call
+        //        Model.ForwardCall(target);
+        //    }
+        //}
 
-        private void btnTransfer_Click(object sender, RoutedEventArgs e)
-        {
-            if (Model.SelectedCall == null)
-                return;
+        //private void btnTransfer_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (Model.SelectedCall == null)
+        //        return;
 
-            if (!Model.SelectedCall.CallState.IsInCall())
-                return;
+        //    if (!Model.SelectedCall.CallState.IsInCall())
+        //        return;
 
-            TransferModel transferSettings = new TransferModel(Model.PhoneCalls, Model.SelectedCall);
-            TransferWindow tranferWin = new TransferWindow(this, transferSettings);
-            bool? ok = tranferWin.ShowDialog();
-            if (ok != null && ok == true)
-            {
-                // blind transfer
-                if (transferSettings.TransferMode == TransferMode.Blind)
-                {
-                    Model.BlindTransfer(transferSettings.BlindTransferTarget);
-                    return;
-                }
+        //    TransferModel transferSettings = new TransferModel(Model.PhoneCalls, Model.SelectedCall);
+        //    TransferWindow tranferWin = new TransferWindow(this, transferSettings);
+        //    bool? ok = tranferWin.ShowDialog();
+        //    if (ok != null && ok == true)
+        //    {
+        //        // blind transfer
+        //        if (transferSettings.TransferMode == TransferMode.Blind)
+        //        {
+        //            Model.BlindTransfer(transferSettings.BlindTransferTarget);
+        //            return;
+        //        }
 
-                // attended transfer
-                if (transferSettings.TransferMode == TransferMode.Attended)
-                {
-                    Model.AttendedTransfer(transferSettings.AttendedTransferTarget);
-                    return;
-                }
-            }
-        }
+        //        // attended transfer
+        //        if (transferSettings.TransferMode == TransferMode.Attended)
+        //        {
+        //            Model.AttendedTransfer(transferSettings.AttendedTransferTarget);
+        //            return;
+        //        }
+        //    }
+        //}
 
         //private void cbAudioVideoCall_SelectionChanged(object sender, SelectionChangedEventArgs e)
         //{
@@ -604,117 +632,117 @@ namespace secret_sensa.GUI
 
         #endregion
 
-        #region Wav Playback
+        //#region Wav Playback
 
-        private void btnBrowseWavPlaybackFile_Click(object sender, RoutedEventArgs e)
-        {
-            string fileName = DisplayOpenFileDialog("wav");
-            if (string.IsNullOrEmpty(fileName))
-                return;
+        //private void btnBrowseWavPlaybackFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string fileName = DisplayOpenFileDialog("wav");
+        //    if (string.IsNullOrEmpty(fileName))
+        //        return;
 
-            WavPlaybackFileName = fileName;
-            MediaHandlers.LoadPlaybackWavFile(WavPlaybackFileName);
-        }
+        //    WavPlaybackFileName = fileName;
+        //    MediaHandlers.LoadPlaybackWavFile(WavPlaybackFileName);
+        //}
 
-        private void btnPlayWavPlaybackFile_Click(object sender, RoutedEventArgs e)
-        {
-            MediaHandlers.StartWavPlayback();
-        }
+        //private void btnPlayWavPlaybackFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MediaHandlers.StartWavPlayback();
+        //}
 
-        private void btnPauseWavPlaybackFile_Click(object sender, RoutedEventArgs e)
-        {
-            MediaHandlers.PauseWavPlayback();
-        }
+        //private void btnPauseWavPlaybackFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MediaHandlers.PauseWavPlayback();
+        //}
 
-        private void btnStopWavPlaybackFile_Click(object sender, RoutedEventArgs e)
-        {
-            MediaHandlers.StopWavPlayback();
-        }
+        //private void btnStopWavPlaybackFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MediaHandlers.StopWavPlayback();
+        //}
 
-        #endregion
+        //#endregion
 
-        #region MP3 Playback
+        //#region MP3 Playback
 
-        private void btnBrowseMP3PlaybackFile_Click(object sender, RoutedEventArgs e)
-        {
-            string fileName = DisplayOpenFileDialog("mp3");
-            if (string.IsNullOrEmpty(fileName))
-                return;
+        //private void btnBrowseMP3PlaybackFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string fileName = DisplayOpenFileDialog("mp3");
+        //    if (string.IsNullOrEmpty(fileName))
+        //        return;
 
-            MP3PlaybackFileName = fileName;
-            MediaHandlers.LoadPlaybackMP3File(MP3PlaybackFileName);
-        }
+        //    MP3PlaybackFileName = fileName;
+        //    MediaHandlers.LoadPlaybackMP3File(MP3PlaybackFileName);
+        //}
 
-        private void btnPlayMP3PlaybackFile_Click(object sender, RoutedEventArgs e)
-        {
-            MediaHandlers.StartMP3Playback();
-        }
+        //private void btnPlayMP3PlaybackFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MediaHandlers.StartMP3Playback();
+        //}
 
-        private void btnPauseMP3PlaybackFile_Click(object sender, RoutedEventArgs e)
-        {
-            MediaHandlers.PauseMP3Playback();
-        }
+        //private void btnPauseMP3PlaybackFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MediaHandlers.PauseMP3Playback();
+        //}
 
-        private void btnStopMP3PlaybackFile_Click(object sender, RoutedEventArgs e)
-        {
-            MediaHandlers.StopMP3Playback();
-        }
+        //private void btnStopMP3PlaybackFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MediaHandlers.StopMP3Playback();
+        //}
 
-        #endregion
+        //#endregion
 
-        #region Wav Recorder
+        //#region Wav Recorder
 
-        private void btnBrowseWavRecordFile_Click(object sender, RoutedEventArgs e)
-        {
-            string fileName = DisplaySaveFileDialog("wav");
-            if (string.IsNullOrEmpty(fileName))
-                return;
+        //private void btnBrowseWavRecordFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string fileName = DisplaySaveFileDialog("wav");
+        //    if (string.IsNullOrEmpty(fileName))
+        //        return;
 
-            WavRecordFileName = fileName;
-            MediaHandlers.LoadRecordWavFile(WavRecordFileName);
-        }
+        //    WavRecordFileName = fileName;
+        //    MediaHandlers.LoadRecordWavFile(WavRecordFileName);
+        //}
 
-        private void btnPlayWavRecordFile_Click(object sender, RoutedEventArgs e)
-        {
-            MediaHandlers.StartWavRecording();
-        }
+        //private void btnPlayWavRecordFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MediaHandlers.StartWavRecording();
+        //}
 
-        private void btnPauseWavRecordFile_Click(object sender, RoutedEventArgs e)
-        {
-            MediaHandlers.PauseWavRecording();
-        }
+        //private void btnPauseWavRecordFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MediaHandlers.PauseWavRecording();
+        //}
 
-        private void btnStopWavRecordFile_Click(object sender, RoutedEventArgs e)
-        {
-            MediaHandlers.StopWavRecording();
-            WavRecordFileName = null;
-        }
+        //private void btnStopWavRecordFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MediaHandlers.StopWavRecording();
+        //    WavRecordFileName = null;
+        //}
 
-        #endregion
+        //#endregion
 
-        #region Ringtones
+        //#region Ringtones
 
-        private void btnBrowseRingbackFile_Click(object sender, RoutedEventArgs e)
-        {
-            string fileName = DisplayOpenFileDialog("wav");
-            if (string.IsNullOrEmpty(fileName))
-                return;
+        //private void btnBrowseRingbackFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string fileName = DisplayOpenFileDialog("wav");
+        //    if (string.IsNullOrEmpty(fileName))
+        //        return;
 
-            MediaHandlers.SetRingback(fileName);
-            RingbackFileName = fileName;
-        }
+        //    MediaHandlers.SetRingback(fileName);
+        //    RingbackFileName = fileName;
+        //}
 
-        private void btnBrowseRingtoneFile_Click(object sender, RoutedEventArgs e)
-        {
-            string fileName = DisplayOpenFileDialog("wav");
-            if (string.IsNullOrEmpty(fileName))
-                return;
+        //private void btnBrowseRingtoneFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string fileName = DisplayOpenFileDialog("wav");
+        //    if (string.IsNullOrEmpty(fileName))
+        //        return;
 
-            MediaHandlers.SetRingtone(fileName);
-            RingtoneFileName = fileName;
-        }
+        //    MediaHandlers.SetRingtone(fileName);
+        //    RingtoneFileName = fileName;
+        //}
 
-        #endregion
+        //#endregion
 
         #region INotifyPropertyChanged Members
 
@@ -764,58 +792,58 @@ namespace secret_sensa.GUI
 
         #endregion
 
-        #region File Dialogs
+        //#region File Dialogs
 
-        private string DisplayOpenFileDialog(string extension)
-        {
-            string filter = string.Empty;
-            switch (extension.ToLower())
-            {
-                case "wav":
-                    filter = "Wave files (.wav)|*.wav";
-                    break;
+        //private string DisplayOpenFileDialog(string extension)
+        //{
+        //    string filter = string.Empty;
+        //    switch (extension.ToLower())
+        //    {
+        //        case "wav":
+        //            filter = "Wave files (.wav)|*.wav";
+        //            break;
 
-                case "mp3":
-                    filter = "MP3 files (.mp3)|*.mp3";
-                    break;
-            }
+        //        case "mp3":
+        //            filter = "MP3 files (.mp3)|*.mp3";
+        //            break;
+        //    }
 
-            OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = filter;
-            dialog.Multiselect = false;
-            if (true==dialog.ShowDialog())
-            {
-                return dialog.FileName;
-            }
+        //    OpenFileDialog dialog = new OpenFileDialog();
+        //    dialog.Filter = filter;
+        //    dialog.Multiselect = false;
+        //    if (true==dialog.ShowDialog())
+        //    {
+        //        return dialog.FileName;
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
-        private string DisplaySaveFileDialog(string extension)
-        {
-            string filter = string.Empty;
-            switch (extension.ToLower())
-            {
-                case "wav":
-                    filter = "Wave files (.wav)|*.wav";
-                    break;
+        //private string DisplaySaveFileDialog(string extension)
+        //{
+        //    string filter = string.Empty;
+        //    switch (extension.ToLower())
+        //    {
+        //        case "wav":
+        //            filter = "Wave files (.wav)|*.wav";
+        //            break;
 
-                case "mp3":
-                    filter = "MP3 files (.mp3)|*.mp3";
-                    break;
-            }
+        //        case "mp3":
+        //            filter = "MP3 files (.mp3)|*.mp3";
+        //            break;
+        //    }
 
-            SaveFileDialog dialog = new SaveFileDialog();
-            dialog.Filter = filter;
-            if (true==dialog.ShowDialog())
-            {
-                return dialog.FileName;
-            }
+        //    SaveFileDialog dialog = new SaveFileDialog();
+        //    dialog.Filter = filter;
+        //    if (true==dialog.ShowDialog())
+        //    {
+        //        return dialog.FileName;
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
-        #endregion
+        //#endregion
 
         #region Codecs
 
@@ -927,15 +955,6 @@ namespace secret_sensa.GUI
             Model.InitSoftphone(UseFixIP);
         }
 
-        NatDiscoveryWindow natDiscoveryWin;
-        private void btnNatDiscovery_Click(object sender, RoutedEventArgs e)
-        {
-            Model.BeginNatDiscovery();
-
-            natDiscoveryWin = new NatDiscoveryWindow(this);
-            natDiscoveryWin.ShowDialog();
-        }
-
         #endregion
 
         //private void btnSend_Click(object sender, RoutedEventArgs e)
@@ -949,10 +968,10 @@ namespace secret_sensa.GUI
         //    InstantMessage = "";
         //}
 
-        private void btnClear_Click(object sender, RoutedEventArgs e)
-        {
-            Model.ClearInstantMessages();
-        }
+        //private void btnClear_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Model.ClearInstantMessages();
+        //}
 
         private void ShowLicenseError(string message)
         {
