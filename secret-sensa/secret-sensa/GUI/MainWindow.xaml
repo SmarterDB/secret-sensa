@@ -111,7 +111,7 @@
                     <StackPanel Orientation="Horizontal">
                         <!--<Button x:Name="btnAnswer" Style="{StaticResource Icon}" Content="A"  Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Click="btnAnswer_Click"/>-->
                         <Button x:Name="btnDialVideo" Style="{StaticResource Icon}" Content="&#xF095;" Foreground="Green" ToolTip="Make a call using audio and video channels" Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="98" Click="btnDialVideo_Click" />
-                        <Button x:Name="btnHangup" Style="{StaticResource Icon}" Content="&#xF098;"  Foreground="Red" Height="63" HorizontalAlignment="Right" VerticalAlignment="Top" Width="98" Click="btnHangup_Click" RenderTransformOrigin="0.54,0.448" />
+                        <Button x:Name="btnHangup" Style="{StaticResource Icon}" Content="&#xF098;"  Foreground="Red" Height="63" HorizontalAlignment="Right" VerticalAlignment="Top" Width="98" Click="btnHangup_Click" RenderTransformOrigin="0.5,0.5" />
                     </StackPanel>
                 </StackPanel>
             </GroupBox>

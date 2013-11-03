@@ -167,6 +167,7 @@ namespace secret_sensa.GUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+
             remoteVideoViewer.SetImageProvider(MediaHandlers.RemoteImageProvider);
             localVideoViewer.SetImageProvider(MediaHandlers.LocalImageProvider);
 
@@ -269,7 +270,7 @@ namespace secret_sensa.GUI
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            App.Register(Model);
+            Model.RegisterLine();
 
             //if (!Validate("User name", Model.AccountModel.UserName))
             //    return;

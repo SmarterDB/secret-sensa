@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="DisplayName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">cis1</Value>
+      <Value Profile="(Default)">cis2</Value>
     </Setting>
     <Setting Name="UserName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">cis1</Value>
+      <Value Profile="(Default)">cis2</Value>
     </Setting>
     <Setting Name="RegisterName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">cis1</Value>
+      <Value Profile="(Default)">cis2</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="User">
       <Value Profile="(Default)">cis2013</Value>
