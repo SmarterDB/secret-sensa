@@ -62,7 +62,7 @@
                 </GroupBox>
             </Grid>
         </GroupBox>
-        <StackPanel Width="300" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right">
+        <StackPanel Width="300" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="507">
             <GroupBox Name="grpSIPAccount" Header="SIP account settings" Height="250" VerticalAlignment="Top">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -101,17 +101,17 @@
                     <Label Content="Status:" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
                     <!--<TextBox Name="tbPhoneLineStatus"  Grid.Row="7" Grid.Column="1" Text="{Binding Model.SelectedLine.LineStateReason, Mode=OneWay}" IsReadOnly="True"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2"  />-->
                     <Label Name="tbPhoneLineStatus"  Grid.Row="7" Grid.Column="1" Content="{Binding Model.SelectedLine.LineStateReason, Mode=OneWay}" HorizontalAlignment="Left" Height="24" VerticalAlignment="Center" Width="158" Margin="0,3,0,2"  />
-
-                    <Button Name="btnRegister" Content="Register" Grid.Column="2" Grid.Row="8" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnRegister_Click" />
+                    <Button Name="btnRegister" Content="Register" Grid.Column="1" Grid.Row="7" Height="26" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Click="btnRegister_Click" Margin="0,25.667,93,0" Grid.RowSpan="2" />
+                    <Button Name="btnUnRegister" Content="Unregister" Grid.Column="1" Grid.Row="7" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnUnregister_Click" Margin="83,25.667,0,0" Grid.RowSpan="2"/>
                 </Grid>
             </GroupBox>
-            <GroupBox Header="Dialpad" Height="130" HorizontalAlignment="Left" Name="grpDialPad">
+            <GroupBox Header="Dialpad" Height="134" HorizontalAlignment="Center" x:Name="grpDialPad" Margin="0,100,0,0">
                 <StackPanel>
-                    <TextBox Name="tbDial" Text="{Binding DialNumber}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="205" Margin="5" HorizontalContentAlignment="Right" Height="24" />
+                    <TextBox x:Name="tbDial" Text="{Binding DialNumber}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="205" Margin="5" HorizontalContentAlignment="Right" Height="24" />
                     <StackPanel Orientation="Horizontal">
-                        <Button Name="btnDialVideo" Style="{StaticResource Icon}" Content="" Foreground="Green" ToolTip="Make a call using audio and video channels" Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Click="btnDialVideo_Click" />
-                        <Button x:Name="btnHangup" Style="{StaticResource Icon}" Content=""  Foreground="Red" Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Click="btnHangup_Click" />
-                        <Button x:Name="btnAnswer" Style="{StaticResource Icon}" Content="A"  Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Click="btnAnswer_Click"/>
+                        <!--<Button x:Name="btnAnswer" Style="{StaticResource Icon}" Content="A"  Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Click="btnAnswer_Click"/>-->
+                        <Button x:Name="btnDialVideo" Style="{StaticResource Icon}" Content="&#xF095;" Foreground="Green" ToolTip="Make a call using audio and video channels" Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="98" Click="btnDialVideo_Click" />
+                        <Button x:Name="btnHangup" Style="{StaticResource Icon}" Content="&#xF098;"  Foreground="Red" Height="63" HorizontalAlignment="Right" VerticalAlignment="Top" Width="98" Click="btnHangup_Click" RenderTransformOrigin="0.54,0.448" />
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
