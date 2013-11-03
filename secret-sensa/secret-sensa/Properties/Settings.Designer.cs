@@ -25,7 +25,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cis1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("cis2")]
         public string DisplayName {
             get {
                 return ((string)(this["DisplayName"]));
@@ -37,7 +37,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cis1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("cis2")]
         public string UserName {
             get {
                 return ((string)(this["UserName"]));
@@ -49,7 +49,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cis1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("cis2")]
         public string RegisterName {
             get {
                 return ((string)(this["RegisterName"]));

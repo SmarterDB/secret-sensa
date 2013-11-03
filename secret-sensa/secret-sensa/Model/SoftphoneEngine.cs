@@ -116,8 +116,6 @@ namespace secret_sensa.Model
         /// </summary>
         public ObservableList<string> InstantMessages { get; set; }
 
-        //Az AccountInfo-t átköltöztetjük ide, hogy ne kelljen külön
-        //ablakra ugrani
         public AccountModel AccountModel { get; private set; }
 
         #endregion
@@ -159,7 +157,7 @@ namespace secret_sensa.Model
 
         #region Init, Dispose
 
-        public SoftphoneEngine()
+        public SoftphoneEngine(bool IsToRegister=true)
         {
             // set license here
 
@@ -187,6 +185,11 @@ namespace secret_sensa.Model
             // create media
             MediaHandlers = new MediaHandlers();
             MediaHandlers.Init();
+
+            if (IsToRegister)
+            {
+                RegisterLine();
+            }
         }
 
         /// <summary>
@@ -294,6 +297,40 @@ namespace secret_sensa.Model
         #endregion
 
         #region PhoneLine Methods
+
+        private bool Validate(string value)
+        {
+            if (value == null || string.IsNullOrEmpty(value.Trim()))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void RegisterLine()
+        {
+            if (!Validate(AccountModel.UserName))
+            {
+                throw new ArgumentOutOfRangeException("User name cannot be empty!");
+            }
+
+            if (!Validate(AccountModel.RegisterName))
+            {
+                throw new ArgumentOutOfRangeException("Register name cannot be empty!");
+            }
+
+            if (!Validate(AccountModel.Domain))
+            {
+                throw new ArgumentOutOfRangeException("Domain cannot be empty!");
+            }
+
+            var line = AddPhoneLine(AccountModel.SIPAccount, AccountModel.TransportType, AccountModel.NatConfig, AccountModel.SRTPMode);
+
+            if (SelectedLine == null)
+                SelectedLine = line;
+
+            RegisterPhoneLine();
+        }
 
         /// <summary>
         /// Creates a phone line and adds it to the collection.
