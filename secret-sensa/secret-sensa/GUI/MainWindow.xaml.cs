@@ -269,40 +269,42 @@ namespace secret_sensa.GUI
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            if (!Validate("User name", Model.AccountModel.UserName))
-                return;
+            App.Register(Model);
 
-            if (!Validate("Register name", Model.AccountModel.RegisterName))
-                return;
+            //if (!Validate("User name", Model.AccountModel.UserName))
+            //    return;
 
-            if (!Validate("Domain", Model.AccountModel.Domain))
-                return;
+            //if (!Validate("Register name", Model.AccountModel.RegisterName))
+            //    return;
 
-            var line = Model.AddPhoneLine(Model.AccountModel.SIPAccount, Model.AccountModel.TransportType, Model.AccountModel.NatConfig, Model.AccountModel.SRTPMode);
+            //if (!Validate("Domain", Model.AccountModel.Domain))
+            //    return;
 
-            if (Model.SelectedLine == null)
-                Model.SelectedLine = line;
+            //var line = Model.AddPhoneLine(Model.AccountModel.SIPAccount, Model.AccountModel.TransportType, Model.AccountModel.NatConfig, Model.AccountModel.SRTPMode);
 
-            try
-            {
-                Model.RegisterPhoneLine();
-            }
-            catch (Exception ex)
-            {
-                ShowLicenseError(ex.Message);
-            }
+            //if (Model.SelectedLine == null)
+            //    Model.SelectedLine = line;
+
+            //try
+            //{
+            //    Model.RegisterPhoneLine();
+            //}
+            //catch (Exception ex)
+            //{
+            //    ShowLicenseError(ex.Message);
+            //}
         }
 
-        private bool Validate(string propertyName, string value)
-        {
-            if (value == null || string.IsNullOrEmpty(value.Trim()))
-            {
-                MessageBox.Show(string.Format("{0} cannot be empty!", propertyName));
-                return false;
-            }
+        //private bool Validate(string propertyName, string value)
+        //{
+        //    if (value == null || string.IsNullOrEmpty(value.Trim()))
+        //    {
+        //        MessageBox.Show(string.Format("{0} cannot be empty!", propertyName));
+        //        return false;
+        //    }
 
-            return true;
-        }
+        //    return true;
+        //}
 
 
         private void btnUnregister_Click(object sender, RoutedEventArgs e)
@@ -426,7 +428,15 @@ namespace secret_sensa.GUI
 
         private void btnDialVideo_Click(object sender, RoutedEventArgs e)
         {
-            Dial(CallType.AudioVideo, false);
+            //uno button für alles
+            if (Model.SelectedCall != null)
+            {
+                btnAnswer_Click(sender, e);
+            }
+            else
+            {
+                Dial(CallType.AudioVideo, false);
+            }
         }
 
         //private void btnDialPadIP_Click(object sender, RoutedEventArgs e)
@@ -475,10 +485,11 @@ namespace secret_sensa.GUI
             }
         }
 
-        private void btnReject_Click(object sender, RoutedEventArgs e)
-        {
-            Model.RejectCall();
-        }
+        //ilyen most nem lesz
+        //private void btnReject_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Model.RejectCall();
+        //}
 
         private void btnHangup_Click(object sender, RoutedEventArgs e)
         {
