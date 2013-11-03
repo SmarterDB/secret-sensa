@@ -105,9 +105,13 @@
                     <Button Name="btnUnRegister" Content="Unregister" Grid.Column="1" Grid.Row="7" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnUnregister_Click" Margin="83,25.667,0,0" Grid.RowSpan="2"/>
                 </Grid>
             </GroupBox>
-            <GroupBox Header="Dialpad" Height="134" HorizontalAlignment="Center" x:Name="grpDialPad" Margin="0,100,0,0">
+            <GroupBox Header="Dialpad" Height="234" HorizontalAlignment="Center" x:Name="grpDialPad" Margin="0,0,0,0">
                 <StackPanel>
                     <TextBox x:Name="tbDial" Text="{Binding DialNumber}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="205" Margin="5" HorizontalContentAlignment="Right" Height="24" />
+                    <Label Name="lblSipAccount" Content="{Binding Model.SelectedCall.Line.SIPAccount, Converter={StaticResource SIPAccountToStringConverter}, Mode=OneWay}" Height="24" Width="205" />
+                    <Label Name="lblOtherParty" Content="{Binding Model.SelectedCall.OtherParty, Mode=OneWay}" Height="24" Width="205" />
+                    <Label Name="lblIsIncoming" Content="{Binding Model.SelectedCall.IsIncoming, Converter={StaticResource IncomingToDirectionConverter}, Mode=OneWay}" Height="24" Width="205" />
+                    <Label Name="lblReasonOfState" Content="{Binding Model.SelectedCall.ReasonOfState, Mode=OneWay}" Height="24" Width="205" />
                     <StackPanel Orientation="Horizontal">
                         <!--<Button x:Name="btnAnswer" Style="{StaticResource Icon}" Content="A"  Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Click="btnAnswer_Click"/>-->
                         <Button x:Name="btnDialVideo" Style="{StaticResource Icon}" Content="&#xF095;" Foreground="Green" ToolTip="Make a call using audio and video channels" Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="98" Click="btnDialVideo_Click" />

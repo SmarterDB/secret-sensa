@@ -241,7 +241,11 @@ namespace secret_sensa.GUI
 
         private void UpdatePhoneCalls()
         {
-            lvPhoneCalls.Dispatcher.Invoke(new Action(() => lvPhoneCalls.Items.Refresh()));
+            //lvPhoneCalls.Dispatcher.Invoke(new Action(() => lvPhoneCalls.Items.Refresh()));
+            lblSipAccount.Dispatcher.Invoke(new Action(() => lblSipAccount.GetBindingExpression(Label.ContentProperty).UpdateTarget()));
+            lblOtherParty.Dispatcher.Invoke(new Action(() => lblOtherParty.GetBindingExpression(Label.ContentProperty).UpdateTarget()));
+            lblIsIncoming.Dispatcher.Invoke(new Action(() => lblIsIncoming.GetBindingExpression(Label.ContentProperty).UpdateTarget()));
+            lblReasonOfState.Dispatcher.Invoke(new Action(() => lblReasonOfState.GetBindingExpression(Label.ContentProperty).UpdateTarget()));
         }
 
         #endregion

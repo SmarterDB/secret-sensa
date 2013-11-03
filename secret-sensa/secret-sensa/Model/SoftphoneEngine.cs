@@ -116,8 +116,6 @@ namespace secret_sensa.Model
         /// </summary>
         public ObservableList<string> InstantMessages { get; set; }
 
-        //Az AccountInfo-t átköltöztetjük ide, hogy ne kelljen külön
-        //ablakra ugrani
         public AccountModel AccountModel { get; private set; }
 
         #endregion
