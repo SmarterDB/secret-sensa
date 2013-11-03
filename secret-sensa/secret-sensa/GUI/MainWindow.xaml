@@ -269,6 +269,20 @@
                         <ComboBox Name="cbNoiseReductionLevel" ItemsSource="{Binding MediaHandlers.NoiseReductionLevels}" SelectedItem="{Binding MediaHandlers.AudioEnhancer.NoiseReductionLevel}" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="0,2" />
                     </Grid>
                 </TabItem>
+                <TabItem Header="Call History" Name="tiCallHistory">
+                    <Grid>
+                        <ListView Name="lvCallHistory" ItemsSource="{Binding Model.CallHistory.List}" Margin="1,0,7,0" Height="136" VerticalAlignment="Top">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="180" Header="Phone Line" DisplayMemberBinding="{Binding PhoneLine}" />
+                                    <GridViewColumn Width="180" Header="Other Party" DisplayMemberBinding="{Binding OtherParty}" />
+                                    <GridViewColumn Width="55" Header="Direction" DisplayMemberBinding="{Binding IsIncoming, Converter={StaticResource IncomingToDirectionConverter}}" />
+                                    <GridViewColumn Width="130" Header="Call State" DisplayMemberBinding="{Binding ReasonOfState}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </TabItem>
             </TabControl>
         </Grid>
         <CheckBox Content="Settings" Click="chkSettings_Click" HorizontalAlignment="Left" Margin="109,491,0,0" VerticalAlignment="Top"/>
