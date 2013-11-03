@@ -43,9 +43,9 @@
         </Grid.RowDefinitions>
         <GroupBox Name="grpRemoteVideo" Header="Remote video" Height="506" HorizontalAlignment="Left" VerticalAlignment="Top" Width="668" Grid.Column="1">
             <Grid>
-                <video:VideoViewerWPF Width="640" Height="480" HorizontalAlignment="Left" Name="remoteVideoViewer" VerticalAlignment="Top" >
+                <video:VideoViewerWPF Width="656" Height="480" HorizontalAlignment="Left" Name="remoteVideoViewer" VerticalAlignment="Top" >
                 </video:VideoViewerWPF>
-                <GroupBox x:Name="grpLocalVideo" Header="Local video" Height="192" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="196">
+                <GroupBox x:Name="grpLocalVideo" Header="Local video" Height="192" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="196" Margin="0,0,17,-0.333">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="73*"/>
@@ -55,7 +55,7 @@
                             <ColumnDefinition Width="96*" />
                             <ColumnDefinition Width="94*" />
                         </Grid.ColumnDefinitions>
-                        <video:VideoViewerWPF Width="180" Height="135" HorizontalAlignment="Left" Margin="4,7,0,0" x:Name="localVideoViewer" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        <video:VideoViewerWPF Width="180" Height="135" HorizontalAlignment="Left" Margin="1,7,0,0" x:Name="localVideoViewer" VerticalAlignment="Top" Grid.ColumnSpan="2" />
                         <Button Content="Start camera" HorizontalAlignment="Left" x:Name="btnStartVideo" VerticalAlignment="Top" Width="85" Click="btnStartVideo_Click" Grid.Row="1" Margin="4,0,0,0"  />
                         <Button Content="Stop camera" HorizontalAlignment="Right"  x:Name="btnStopVideo" VerticalAlignment="Top" Width="85" Click="btnStopVideo_Click" Grid.Column="1" Grid.Row="1" />
                     </Grid>
@@ -105,13 +105,14 @@
                     <Button Name="btnUnRegister" Content="Unregister" Grid.Column="1" Grid.Row="7" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnUnregister_Click" Margin="83,25.667,0,0" Grid.RowSpan="2"/>
                 </Grid>
             </GroupBox>
-            <GroupBox Header="Dialpad" Height="134" HorizontalAlignment="Center" x:Name="grpDialPad" Margin="0,100,0,0">
+            <GroupBox Header="Dialpad" Height="136" HorizontalAlignment="Center" x:Name="grpDialPad" Margin="37,100,34,0" Width="229">
                 <StackPanel>
                     <TextBox x:Name="tbDial" Text="{Binding DialNumber}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="205" Margin="5" HorizontalContentAlignment="Right" Height="24" />
                     <StackPanel Orientation="Horizontal">
                         <!--<Button x:Name="btnAnswer" Style="{StaticResource Icon}" Content="A"  Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Click="btnAnswer_Click"/>-->
-                        <Button x:Name="btnDialVideo" Style="{StaticResource Icon}" Content="&#xF095;" Foreground="Green" ToolTip="Make a call using audio and video channels" Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="98" Click="btnDialVideo_Click" />
-                        <Button x:Name="btnHangup" Style="{StaticResource Icon}" Content="&#xF098;"  Foreground="Red" Height="63" HorizontalAlignment="Right" VerticalAlignment="Top" Width="98" Click="btnHangup_Click" RenderTransformOrigin="0.54,0.448" />
+                        <Button x:Name="btnDialVideo" Style="{StaticResource Icon}" Content="&#xF095;" Foreground="Green" ToolTip="Make a call using audio and video channels" Height="65" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Click="btnDialVideo_Click" />
+                        <Separator Width="35"></Separator>
+                        <Button x:Name="btnHangup" Style="{StaticResource Icon}" Content="&#xF095;"  Foreground="Red" Height="65" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Click="btnHangup_Click"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
