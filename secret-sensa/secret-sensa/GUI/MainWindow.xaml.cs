@@ -32,6 +32,34 @@ namespace secret_sensa.GUI
 
         #region GUI Properties
 
+        //dinamikus ablakméret
+        private int _height;
+        public int CustomHeight
+        {
+            get { return _height; }
+            set
+            {
+                if (value != _height)
+                {
+                    _height = value;
+                    if (PropertyChanged != null)
+                        PropertyChanged(this, new PropertyChangedEventArgs("CustomHeight"));
+                }
+            }
+        }
+
+        private void chkSettings_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.Height == 750)
+            {
+                CustomHeight = 550;
+            }
+            else
+            {
+                CustomHeight = 750;
+            }
+        }
+
         public string TitleString
         {
             get { return string.Format("COMIC.SYS Ozeki Demo {0}", Assembly.GetExecutingAssembly().GetName().Version); }
@@ -153,6 +181,8 @@ namespace secret_sensa.GUI
             VideoEncoderQuality = VideoQuality.High;
 
             InitializeComponent();
+
+            CustomHeight = 550;
 
             Model.PhoneLineStateChanged += (Model_PhoneLineStateChanged);
             Model.PhoneCallStateChanged += (Model_PhoneCallStateChanged);
@@ -993,5 +1023,7 @@ namespace secret_sensa.GUI
         {
             MessageBox.Show(message, "Ozeki VoIP SIP SDK", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+
     }
 }

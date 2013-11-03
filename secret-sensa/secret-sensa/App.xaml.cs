@@ -17,9 +17,7 @@ namespace secret_sensa
             try
             {
                 SoftphoneEngine model = new SoftphoneEngine();
-
                 MainWindow window = new MainWindow(model);
-
                 window.Show();
             }
             catch (Exception ex)

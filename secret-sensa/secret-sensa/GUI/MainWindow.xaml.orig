@@ -1,0 +1,605 @@
+<<<<<<< HEAD
+﻿<Window x:Class="secret_sensa.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:conv="clr-namespace:secret_sensa.GUI.Converters"
+        xmlns:video="clr-namespace:Ozeki.Media.Video.Controls;assembly=VoIPSDK"
+        Title="{Binding TitleString}" Height="750" Width="1000" WindowStartupLocation="CenterScreen"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" 
+        Closing="Window_Closing" 
+        Loaded="Window_Loaded" 
+        ResizeMode="CanMinimize">
+    <Window.Resources>
+        <conv:SIPAccountToStringConverter x:Key="SIPAccountToStringConverter" />
+        <conv:IncomingToDirectionConverter x:Key="IncomingToDirectionConverter" />
+        <conv:MessageSummaryToStringConverter x:Key="MessageSummaryToStringConverter" />
+        <conv:MessageSummaryToBoolConverter x:Key="MessageSummaryToBoolConverter" />
+        <conv:FileNameToIsEnabledConverter x:Key="FileNameToIsEnabledConverter" />
+        <conv:ResolutionConverter x:Key="ResolutionConverter" />
+        <conv:ResolutionListConverter x:Key="ResolutionListConverter" />
+        <conv:FrameRateToStringConverter x:Key="FrameRateToStringConverter" />
+        <conv:FrameRateListToStringConverter x:Key="FrameRateListToStringConverter" />
+        <conv:RingtoneToStringConverter x:Key="RingtoneToStringConverter" />
+        <conv:SupportedMediaTypesToCallTypeConverter x:Key="SupportedMediaTypesToCallTypeConverter" />
+        <ItemsPanelTemplate x:Key="CodecPanelTemplate">
+            <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                                   ItemWidth="80"
+                                   MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
+                                   ItemHeight="{Binding (ListView.View).ItemHeight, RelativeSource={RelativeSource AncestorType=ListView}}" />
+        </ItemsPanelTemplate>
+        <Style TargetType="Button" x:Key="Icon">
+            <Setter Property="FontFamily" Value="/Content/fonts/#FontAwesome" />
+            <Setter Property="FontSize" Value="50" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="700" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="516" />
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+        <GroupBox Name="grpRemoteVideo" Header="Remote video" Height="506" HorizontalAlignment="Left" VerticalAlignment="Top" Width="668" Grid.Column="1">
+            <Grid>
+                <video:VideoViewerWPF Width="656" Height="480" HorizontalAlignment="Left" Name="remoteVideoViewer" VerticalAlignment="Top" >
+                </video:VideoViewerWPF>
+                <GroupBox x:Name="grpLocalVideo" Header="Local video" Height="192" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="196" Margin="0,0,17,-0.333">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="73*"/>
+                            <RowDefinition Height="12*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="96*" />
+                            <ColumnDefinition Width="94*" />
+                        </Grid.ColumnDefinitions>
+                        <video:VideoViewerWPF Width="180" Height="135" HorizontalAlignment="Left" Margin="1,7,0,0" x:Name="localVideoViewer" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        <Button Content="Start camera" HorizontalAlignment="Left" x:Name="btnStartVideo" VerticalAlignment="Top" Width="85" Click="btnStartVideo_Click" Grid.Row="1" Margin="4,0,0,0"  />
+                        <Button Content="Stop camera" HorizontalAlignment="Right"  x:Name="btnStopVideo" VerticalAlignment="Top" Width="85" Click="btnStopVideo_Click" Grid.Column="1" Grid.Row="1" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+        <StackPanel Width="300" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="507">
+            <GroupBox Name="grpSIPAccount" Header="SIP account settings" Height="250" VerticalAlignment="Top">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="158*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Name="lDisplayName" Content="Display name:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <TextBox Name="tbDisplayName" Grid.Row="1" Grid.Column="1" Text="{Binding Model.AccountModel.DisplayName}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2" />
+
+                    <Label Name="lUserName" Content="User name:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <TextBox Name="tbUserName" Grid.Row="2" Grid.Column="1" Text="{Binding Model.AccountModel.UserName}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,2,0,3" />
+
+                    <Label Name="lRegisterName" Content="Register name:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <TextBox Name="tbRegisterName" Grid.Row="3" Grid.Column="1" Text="{Binding Model.AccountModel.RegisterName}"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2" />
+
+                    <Label Name="lPassword" Content="Password:" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <TextBox Name="tbPassword" Grid.Row="4" Grid.Column="1" Text="{Binding Model.AccountModel.Password}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,2,0,3" />
+
+                    <Label Name="lDomain" Content="Domain:" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <TextBox Name="tbDomain" Grid.Row="5" Grid.Column="1" Text="{Binding Model.AccountModel.Domain}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2" />
+
+                    <Label Name="lOutboundProxy" Content="Outbound Proxy:" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <TextBox Name="tbOutboundProxy" Grid.Row="6" Grid.Column="1" Text="{Binding Model.AccountModel.OutboundProxy}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,2,0,3" />
+
+                    <Label Content="Status:" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <!--<TextBox Name="tbPhoneLineStatus"  Grid.Row="7" Grid.Column="1" Text="{Binding Model.SelectedLine.LineStateReason, Mode=OneWay}" IsReadOnly="True"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2"  />-->
+                    <Label Name="tbPhoneLineStatus"  Grid.Row="7" Grid.Column="1" Content="{Binding Model.SelectedLine.LineStateReason, Mode=OneWay}" HorizontalAlignment="Left" Height="24" VerticalAlignment="Center" Width="158" Margin="0,3,0,2"  />
+                    <Button Name="btnRegister" Content="Register" Grid.Column="1" Grid.Row="7" Height="26" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Click="btnRegister_Click" Margin="0,25.667,93,0" Grid.RowSpan="2" />
+                    <Button Name="btnUnRegister" Content="Unregister" Grid.Column="1" Grid.Row="7" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnUnregister_Click" Margin="83,25.667,0,0" Grid.RowSpan="2"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Dialpad" Height="136" HorizontalAlignment="Center" x:Name="grpDialPad" Margin="37,100,34,0" Width="229">
+                <StackPanel>
+                    <TextBox x:Name="tbDial" Text="{Binding DialNumber}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="205" Margin="5" HorizontalContentAlignment="Right" Height="24" />
+                    <StackPanel Orientation="Horizontal">
+                        <!--<Button x:Name="btnAnswer" Style="{StaticResource Icon}" Content="A"  Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Click="btnAnswer_Click"/>-->
+                        <Button x:Name="btnDialVideo" Style="{StaticResource Icon}" Content="&#xF095;" Foreground="Green" ToolTip="Make a call using audio and video channels" Height="65" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Click="btnDialVideo_Click" />
+                        <Separator Width="35"></Separator>
+                        <Button x:Name="btnHangup" Style="{StaticResource Icon}" Content="&#xF095;"  Foreground="Red" Height="65" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Click="btnHangup_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        <Grid Background="Gainsboro" Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="297" />
+                <ColumnDefinition Width="472" />
+                <ColumnDefinition Width="209*" />
+            </Grid.ColumnDefinitions>
+            <TabControl Name="tcMedia" Height="182" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="970" Grid.ColumnSpan="3">
+                <TabItem Header="Phone Lines" Name="tiPhoneLines">
+                    <GroupBox Header="Phone Lines" HorizontalAlignment="Left" Width="947" Grid.ColumnSpan="2" Height="80" VerticalAlignment="Top">
+                        <Grid VerticalAlignment="Top" Height="80">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <ListView Name="lvPhoneCalls" ItemsSource="{Binding Model.PhoneCalls}" SelectedItem="{Binding Model.SelectedCall}" Height="54" VerticalAlignment="Top" >
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="180" Header="Phone Line" DisplayMemberBinding="{Binding Line.SIPAccount, Converter={StaticResource SIPAccountToStringConverter}}" />
+                                        <GridViewColumn Width="180" Header="Other Party" DisplayMemberBinding="{Binding OtherParty}" />
+                                        <GridViewColumn Width="55" Header="Direction" DisplayMemberBinding="{Binding IsIncoming, Converter={StaticResource IncomingToDirectionConverter}}" />
+                                        <GridViewColumn Width="130" Header="Call State" DisplayMemberBinding="{Binding ReasonOfState}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </GroupBox>
+
+                </TabItem>
+                <TabItem Header="Audio devices" Name="tiMicrophoneSpeakerSettings">
+                    <Grid>
+                        <GroupBox Name="grpMicrophoneSettings" Header="Microphone settings" Height="110" HorizontalAlignment="Left" Margin="9,6,0,0" VerticalAlignment="Top" Width="355" Grid.RowSpan="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="214" />
+                                    <ColumnDefinition Width="77*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="6" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="19*" />
+                                </Grid.RowDefinitions>
+                                <Label Name="lMicrophoneDevice" Content="Device:" Grid.Column="0"  Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <ComboBox Name="cbMicrophoneDevices" ItemsSource="{Binding MediaHandlers.Microphones}" SelectedItem="{Binding MediaHandlers.Microphone.DeviceInfo, Mode=OneWay}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="0,2" SelectionChanged="cbMicrophoneDevices_SelectionChanged" />
+                                <Button Name="btnRefreshMicrophones" Content="Refresh" Grid.Column="1" Grid.Row="3"   HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Click="btnRefreshMicrophones_Click" Margin="139,0,0,6" />
+
+                                <Label Name="lMicrophoneVolume" Content="Volume:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <Slider Name="sMicrophoneVolume" Value="{Binding MediaHandlers.Microphone.Volume}" Minimum="0" Maximum="1" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="0,2,6,2" />
+                                <CheckBox Name="chkbMicrophoneMute" IsChecked="{Binding MediaHandlers.Microphone.Muted}" Content="Mute" Grid.Column="2" Grid.Row="1" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,7" Width="59" />
+                                <ProgressBar Name="pbMicrophoneLevel" Value="{Binding MediaHandlers.MicrophoneLevel, Mode=OneWay}" Minimum="0" Maximum="100" Grid.Column="2" Grid.Row="1" Height="75.5" VerticalAlignment="Center" Margin="0,0,4,6.5" Orientation="Vertical" Grid.RowSpan="3" HorizontalAlignment="Right" Width="14" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Name="grpSpeakerSettings" Header="Speaker settings" Margin="369,6,-25,0" Height="110" HorizontalAlignment="Left" VerticalAlignment="Top" Width="355" Grid.RowSpan="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="214" />
+                                    <ColumnDefinition Width="77*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="6" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="19*" />
+                                </Grid.RowDefinitions>
+                                <Label Name="lSpeakerDevice" Content="Device:" Grid.Column="0"  Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <ComboBox Name="cbSpeakerDevices" ItemsSource="{Binding MediaHandlers.Speakers}" SelectedItem="{Binding MediaHandlers.Speaker.DeviceInfo, Mode=OneWay}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="0,2" SelectionChanged="cbSpeakerDevices_SelectionChanged" />
+                                <Button Name="btnRefreshSpeakers" Content="Refresh" Grid.Column="1" Grid.Row="3"   HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Click="btnRefreshSpeakers_Click" Margin="139,3,0,3" />
+
+                                <Label Name="lSpeakerVolume" Content="Volume:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <Slider Name="sSpeakerVolume" Value="{Binding MediaHandlers.Speaker.Volume}" Minimum="0" Maximum="1" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="0,2,6,2" />
+                                <CheckBox Name="chkbSpeakerMute" IsChecked="{Binding MediaHandlers.Speaker.Muted}" Content="Mute" Grid.Column="2" Grid.Row="1" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,7" Width="59" />
+                                <ProgressBar Name="pbSpeakerLevel" Value="{Binding MediaHandlers.SpeakerLevel, Mode=OneWay}"  Minimum="0" Maximum="100" Grid.Column="2" Grid.Row="1" Height="78.5" VerticalAlignment="Center" Margin="0,0,4,3.5" Orientation="Vertical" Grid.RowSpan="3" HorizontalAlignment="Right" Width="14" />
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Camera" x:Name="tiCameraSettings">
+                    <Grid>
+                        <GroupBox x:Name="grpCameraSettings" Header="Camera settings" Height="107" HorizontalAlignment="Left" Margin="9,6,0,0" VerticalAlignment="Top" Width="395">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="214" />
+                                    <ColumnDefinition Width="77*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="6" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="19*" />
+                                </Grid.RowDefinitions>
+                                <Label x:Name="lCameraDevice" Content="Device:" Grid.Column="0"  Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <ComboBox x:Name="cbCameraDevices" ItemsSource="{Binding MediaHandlers.Cameras}" SelectedIndex="{Binding MediaHandlers.WebCamera.DeviceID, Mode=OneWay}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,6,0" SelectionChanged="cbCameraDevices_SelectionChanged" />
+                                <Button x:Name="btnRefreshCameras" Content="Refresh" Grid.Column="2" Grid.Row="1"   HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Click="btnRefreshCameras_Click" />
+
+                                <Label x:Name="lCameraResolution" Content="Resolution:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <ComboBox x:Name="cbCameraResolutions" ItemsSource="{Binding MediaHandlers.WebCamera.Capabilities, Converter={StaticResource ResolutionListConverter}}" SelectedItem="{Binding MediaHandlers.WebCamera.Resolution, Converter={StaticResource ResolutionConverter}}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="0,0,92,0" />
+
+                                <Label x:Name="lCameraFrameRate" Content="Frame rate:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <ComboBox x:Name="cbCameraFrameRates" ItemsSource="{Binding MediaHandlers.FrameRates, Converter={StaticResource FrameRateListToStringConverter}}" SelectedItem="{Binding MediaHandlers.WebCamera.DesiredFrameRate, Converter={StaticResource FrameRateToStringConverter}}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Margin="0,0,159,0" />
+                            </Grid>
+                        </GroupBox>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Codecs">
+                    <Grid>
+                        <GroupBox x:Name="grpAudioCodecs" Header="Audio codecs" Margin="10,5,0,0" Grid.Column="0" Height="140" VerticalAlignment="Top" HorizontalAlignment="Left" Width="355">
+                            <Grid>
+                                <ListBox x:Name="lbAudioCodecs" ItemsSource="{Binding Model.AudioCodecs, Mode=OneWay}" ItemsPanel="{StaticResource CodecPanelTemplate}" Height="81" Margin="6,6,10,0" VerticalAlignment="Top">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding CodecName}" IsChecked="{Binding Enabled}" Tag="{Binding PayloadType}" FontSize="11" Checked="CodecCheckBox_Checked" Unchecked="CodecCheckBox_Unchecked" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Button x:Name="btnSelectAllAudioCodecs" Content="Select all" Margin="0,92.12,90,0" VerticalAlignment="Top" Click="btnSelectAllAudioCodecs_Click" HorizontalAlignment="Right" Width="75" />
+                                <Button x:Name="btnDeselectAllAudioCodecs" Content="Deselect all" Margin="0,92.12,10,0"  VerticalAlignment="Top" Click="btnDeselectAllAudioCodecs_Click" HorizontalAlignment="Right" Width="75" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox x:Name="grpVideoCodecs" Header="Video codecs" VerticalAlignment="Top" Margin="369,6,0,0" Grid.Column="0" Height="139" HorizontalAlignment="Left" Width="303">
+                            <Grid>
+                                <ListBox x:Name="lbVideoCodecs" ItemsSource="{Binding Model.VideoCodecs, Mode=OneWay}" ItemsPanel="{StaticResource CodecPanelTemplate}" Height="81" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="173">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding CodecName}" IsChecked="{Binding Enabled, Mode=OneWay}" Tag="{Binding PayloadType}" FontSize="11"  Checked="CodecCheckBox_Checked" Unchecked="CodecCheckBox_Unchecked" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Button x:Name="btnSelectAllVideoCodecs" Content="Select all"  HorizontalAlignment="Left" Margin="24,92,0,0" Width="75" Click="btnSelectAllVideoCodecs_Click" Height="22" VerticalAlignment="Top" />
+                                <Button x:Name="btnDeselectAllVideoCodecs" Content="Deselect all" HorizontalAlignment="Left" Margin="104,92,0,0"  VerticalAlignment="Top" Width="75" Click="btnDeselectAllVideoCodecs_Click" />
+                                <Label Content="Encoding Quality:" HorizontalAlignment="Left" Margin="184,0,0,0" VerticalAlignment="Top"  />
+                                <ComboBox ItemsSource="{Binding VideoQualities}" SelectedItem="{Binding VideoEncoderQuality}" Margin="188,26,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="99" />
+                            </Grid>
+                        </GroupBox>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Voice Quality" Name="tiVoiceQuality">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="130" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="20*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="68*" />
+                        </Grid.RowDefinitions>
+                        <Label Name="lEchoCancellation" Content="Echo Cancellation:" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" />
+                        <CheckBox Name="chkbEchoCancellation" Content="" IsChecked="{Binding MediaHandlers.AudioEnhancer.AcousticEchoCancellation}" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="0,4" />
+
+                        <Label Name="lEchoDelay" Content="Echo Delay:" HorizontalAlignment="Right" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" />
+                        <TextBox Name="tbEchoDelay" Text="{Binding MediaHandlers.AudioEnhancer.EchoDelay}" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" />
+
+                        <Label Name="lAGC" Content="Auto Gain Control:" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" />
+                        <CheckBox Name="chkbAGC" Content="" IsChecked="{Binding MediaHandlers.AudioEnhancer.AutoGainControl}" Grid.Row="2" Grid.Column="2" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="0,4" />
+
+                        <Label Name="lAGCMaxGain" Content="Max Gain:" HorizontalAlignment="Right" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" />
+                        <TextBox Name="tbAGCMaxGain" Text="{Binding MediaHandlers.AudioEnhancer.MaxGain}" Grid.Column="4" Grid.Row="2" VerticalAlignment="Center" />
+
+                        <Label Name="lNoiseReductionLevel" Content="Noise Reduction Level:" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                        <ComboBox Name="cbNoiseReductionLevel" ItemsSource="{Binding MediaHandlers.NoiseReductionLevels}" SelectedItem="{Binding MediaHandlers.AudioEnhancer.NoiseReductionLevel}" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="0,2" />
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>
+=======
+﻿<Window x:Class="secret_sensa.GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:conv="clr-namespace:secret_sensa.GUI.Converters"
+        xmlns:video="clr-namespace:Ozeki.Media.Video.Controls;assembly=VoIPSDK"
+        Title="{Binding TitleString}" Height="750" Width="1000" WindowStartupLocation="CenterScreen"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}" 
+        Closing="Window_Closing" 
+        Loaded="Window_Loaded" 
+        ResizeMode="CanMinimize">
+    <Window.Resources>
+        <conv:SIPAccountToStringConverter x:Key="SIPAccountToStringConverter" />
+        <conv:IncomingToDirectionConverter x:Key="IncomingToDirectionConverter" />
+        <conv:MessageSummaryToStringConverter x:Key="MessageSummaryToStringConverter" />
+        <conv:MessageSummaryToBoolConverter x:Key="MessageSummaryToBoolConverter" />
+        <conv:FileNameToIsEnabledConverter x:Key="FileNameToIsEnabledConverter" />
+        <conv:ResolutionConverter x:Key="ResolutionConverter" />
+        <conv:ResolutionListConverter x:Key="ResolutionListConverter" />
+        <conv:FrameRateToStringConverter x:Key="FrameRateToStringConverter" />
+        <conv:FrameRateListToStringConverter x:Key="FrameRateListToStringConverter" />
+        <conv:RingtoneToStringConverter x:Key="RingtoneToStringConverter" />
+        <conv:SupportedMediaTypesToCallTypeConverter x:Key="SupportedMediaTypesToCallTypeConverter" />
+        <ItemsPanelTemplate x:Key="CodecPanelTemplate">
+            <WrapPanel Width="{Binding (FrameworkElement.ActualWidth), RelativeSource={RelativeSource AncestorType=ScrollContentPresenter}}"
+                                   ItemWidth="80"
+                                   MinWidth="{Binding ItemWidth, RelativeSource={RelativeSource Self}}"
+                                   ItemHeight="{Binding (ListView.View).ItemHeight, RelativeSource={RelativeSource AncestorType=ListView}}" />
+        </ItemsPanelTemplate>
+        <Style TargetType="Button" x:Key="Icon">
+            <Setter Property="FontFamily" Value="/Content/fonts/#FontAwesome" />
+            <Setter Property="FontSize" Value="50" />
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="700" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="516" />
+            <RowDefinition Height="200"/>
+        </Grid.RowDefinitions>
+        <GroupBox Name="grpRemoteVideo" Header="Remote video" Height="506" HorizontalAlignment="Left" VerticalAlignment="Top" Width="668" Grid.Column="1">
+            <Grid>
+                <video:VideoViewerWPF Width="640" Height="480" HorizontalAlignment="Left" Name="remoteVideoViewer" VerticalAlignment="Top" >
+                </video:VideoViewerWPF>
+                <GroupBox x:Name="grpLocalVideo" Header="Local video" Height="192" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="196">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="73*"/>
+                            <RowDefinition Height="12*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="96*" />
+                            <ColumnDefinition Width="94*" />
+                        </Grid.ColumnDefinitions>
+                        <video:VideoViewerWPF Width="180" Height="135" HorizontalAlignment="Left" Margin="4,7,0,0" x:Name="localVideoViewer" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        <Button Content="Start camera" HorizontalAlignment="Left" x:Name="btnStartVideo" VerticalAlignment="Top" Width="85" Click="btnStartVideo_Click" Grid.Row="1" Margin="4,0,0,0"  />
+                        <Button Content="Stop camera" HorizontalAlignment="Right"  x:Name="btnStopVideo" VerticalAlignment="Top" Width="85" Click="btnStopVideo_Click" Grid.Column="1" Grid.Row="1" />
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </GroupBox>
+        <StackPanel Width="300" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="507">
+            <GroupBox Name="grpSIPAccount" Header="SIP account settings" Height="250" VerticalAlignment="Top">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                        <RowDefinition Height="26" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="158*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Name="lDisplayName" Content="Display name:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <TextBox Name="tbDisplayName" Grid.Row="1" Grid.Column="1" Text="{Binding Model.AccountModel.DisplayName}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2" />
+
+                    <Label Name="lUserName" Content="User name:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <TextBox Name="tbUserName" Grid.Row="2" Grid.Column="1" Text="{Binding Model.AccountModel.UserName}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,2,0,3" />
+
+                    <Label Name="lRegisterName" Content="Register name:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <TextBox Name="tbRegisterName" Grid.Row="3" Grid.Column="1" Text="{Binding Model.AccountModel.RegisterName}"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2" />
+
+                    <Label Name="lPassword" Content="Password:" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <TextBox Name="tbPassword" Grid.Row="4" Grid.Column="1" Text="{Binding Model.AccountModel.Password}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,2,0,3" />
+
+                    <Label Name="lDomain" Content="Domain:" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <TextBox Name="tbDomain" Grid.Row="5" Grid.Column="1" Text="{Binding Model.AccountModel.Domain}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2" />
+
+                    <Label Name="lOutboundProxy" Content="Outbound Proxy:" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <TextBox Name="tbOutboundProxy" Grid.Row="6" Grid.Column="1" Text="{Binding Model.AccountModel.OutboundProxy}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,2,0,3" />
+
+                    <Label Content="Status:" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
+                    <!--<TextBox Name="tbPhoneLineStatus"  Grid.Row="7" Grid.Column="1" Text="{Binding Model.SelectedLine.LineStateReason, Mode=OneWay}" IsReadOnly="True"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2"  />-->
+                    <Label Name="tbPhoneLineStatus"  Grid.Row="7" Grid.Column="1" Content="{Binding Model.SelectedLine.LineStateReason, Mode=OneWay}" HorizontalAlignment="Left" Height="24" VerticalAlignment="Center" Width="158" Margin="0,3,0,2"  />
+                    <Button Name="btnRegister" Content="Register" Grid.Column="1" Grid.Row="7" Height="26" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Click="btnRegister_Click" Margin="0,25.667,93,0" Grid.RowSpan="2" />
+                    <Button Name="btnUnRegister" Content="Unregister" Grid.Column="1" Grid.Row="7" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnUnregister_Click" Margin="83,25.667,0,0" Grid.RowSpan="2"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Dialpad" Height="234" HorizontalAlignment="Center" x:Name="grpDialPad" Margin="0,0,0,0">
+                <StackPanel>
+                    <TextBox x:Name="tbDial" Text="{Binding DialNumber}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="205" Margin="5" HorizontalContentAlignment="Right" Height="24" />
+                    <Label Name="lblSipAccount" Content="{Binding Model.SelectedCall.Line.SIPAccount, Converter={StaticResource SIPAccountToStringConverter}, Mode=OneWay}" Height="24" Width="205" />
+                    <Label Name="lblOtherParty" Content="{Binding Model.SelectedCall.OtherParty, Mode=OneWay}" Height="24" Width="205" />
+                    <Label Name="lblIsIncoming" Content="{Binding Model.SelectedCall.IsIncoming, Converter={StaticResource IncomingToDirectionConverter}, Mode=OneWay}" Height="24" Width="205" />
+                    <Label Name="lblReasonOfState" Content="{Binding Model.SelectedCall.ReasonOfState, Mode=OneWay}" Height="24" Width="205" />
+                    <StackPanel Orientation="Horizontal">
+                        <!--<Button x:Name="btnAnswer" Style="{StaticResource Icon}" Content="A"  Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Click="btnAnswer_Click"/>-->
+                        <Button x:Name="btnDialVideo" Style="{StaticResource Icon}" Content="&#xF095;" Foreground="Green" ToolTip="Make a call using audio and video channels" Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="98" Click="btnDialVideo_Click" />
+                        <Button x:Name="btnHangup" Style="{StaticResource Icon}" Content="&#xF098;"  Foreground="Red" Height="63" HorizontalAlignment="Right" VerticalAlignment="Top" Width="98" Click="btnHangup_Click" RenderTransformOrigin="0.5,0.5" />
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        <Grid Background="Gainsboro" Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="297" />
+                <ColumnDefinition Width="472" />
+                <ColumnDefinition Width="209*" />
+            </Grid.ColumnDefinitions>
+            <TabControl Name="tcMedia" Height="182" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="970" Grid.ColumnSpan="3">
+                <TabItem Header="Phone Lines" Name="tiPhoneLines">
+                    <GroupBox Header="Phone Lines" HorizontalAlignment="Left" Width="947" Grid.ColumnSpan="2" Height="80" VerticalAlignment="Top">
+                        <Grid VerticalAlignment="Top" Height="80">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <ListView Name="lvPhoneCalls" ItemsSource="{Binding Model.PhoneCalls}" SelectedItem="{Binding Model.SelectedCall}" Height="54" VerticalAlignment="Top" >
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="180" Header="Phone Line" DisplayMemberBinding="{Binding Line.SIPAccount, Converter={StaticResource SIPAccountToStringConverter}}" />
+                                        <GridViewColumn Width="180" Header="Other Party" DisplayMemberBinding="{Binding OtherParty}" />
+                                        <GridViewColumn Width="55" Header="Direction" DisplayMemberBinding="{Binding IsIncoming, Converter={StaticResource IncomingToDirectionConverter}}" />
+                                        <GridViewColumn Width="130" Header="Call State" DisplayMemberBinding="{Binding ReasonOfState}" />
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </GroupBox>
+
+                </TabItem>
+                <TabItem Header="Audio devices" Name="tiMicrophoneSpeakerSettings">
+                    <Grid>
+                        <GroupBox Name="grpMicrophoneSettings" Header="Microphone settings" Height="110" HorizontalAlignment="Left" Margin="9,6,0,0" VerticalAlignment="Top" Width="355" Grid.RowSpan="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="214" />
+                                    <ColumnDefinition Width="77*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="6" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="19*" />
+                                </Grid.RowDefinitions>
+                                <Label Name="lMicrophoneDevice" Content="Device:" Grid.Column="0"  Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <ComboBox Name="cbMicrophoneDevices" ItemsSource="{Binding MediaHandlers.Microphones}" SelectedItem="{Binding MediaHandlers.Microphone.DeviceInfo, Mode=OneWay}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="0,2" SelectionChanged="cbMicrophoneDevices_SelectionChanged" />
+                                <Button Name="btnRefreshMicrophones" Content="Refresh" Grid.Column="1" Grid.Row="3"   HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Click="btnRefreshMicrophones_Click" Margin="139,0,0,6" />
+
+                                <Label Name="lMicrophoneVolume" Content="Volume:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <Slider Name="sMicrophoneVolume" Value="{Binding MediaHandlers.Microphone.Volume}" Minimum="0" Maximum="1" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="0,2,6,2" />
+                                <CheckBox Name="chkbMicrophoneMute" IsChecked="{Binding MediaHandlers.Microphone.Muted}" Content="Mute" Grid.Column="2" Grid.Row="1" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,7" Width="59" />
+                                <ProgressBar Name="pbMicrophoneLevel" Value="{Binding MediaHandlers.MicrophoneLevel, Mode=OneWay}" Minimum="0" Maximum="100" Grid.Column="2" Grid.Row="1" Height="75.5" VerticalAlignment="Center" Margin="0,0,4,6.5" Orientation="Vertical" Grid.RowSpan="3" HorizontalAlignment="Right" Width="14" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Name="grpSpeakerSettings" Header="Speaker settings" Margin="369,6,-25,0" Height="110" HorizontalAlignment="Left" VerticalAlignment="Top" Width="355" Grid.RowSpan="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60" />
+                                    <ColumnDefinition Width="214" />
+                                    <ColumnDefinition Width="77*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="6" />
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="19*" />
+                                </Grid.RowDefinitions>
+                                <Label Name="lSpeakerDevice" Content="Device:" Grid.Column="0"  Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <ComboBox Name="cbSpeakerDevices" ItemsSource="{Binding MediaHandlers.Speakers}" SelectedItem="{Binding MediaHandlers.Speaker.DeviceInfo, Mode=OneWay}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="0,2" SelectionChanged="cbSpeakerDevices_SelectionChanged" />
+                                <Button Name="btnRefreshSpeakers" Content="Refresh" Grid.Column="1" Grid.Row="3"   HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Click="btnRefreshSpeakers_Click" Margin="139,3,0,3" />
+
+                                <Label Name="lSpeakerVolume" Content="Volume:" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <Slider Name="sSpeakerVolume" Value="{Binding MediaHandlers.Speaker.Volume}" Minimum="0" Maximum="1" TickFrequency="0.1" SmallChange="0.1" LargeChange="0.2" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="0,2,6,2" />
+                                <CheckBox Name="chkbSpeakerMute" IsChecked="{Binding MediaHandlers.Speaker.Muted}" Content="Mute" Grid.Column="2" Grid.Row="1" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2,7" Width="59" />
+                                <ProgressBar Name="pbSpeakerLevel" Value="{Binding MediaHandlers.SpeakerLevel, Mode=OneWay}"  Minimum="0" Maximum="100" Grid.Column="2" Grid.Row="1" Height="78.5" VerticalAlignment="Center" Margin="0,0,4,3.5" Orientation="Vertical" Grid.RowSpan="3" HorizontalAlignment="Right" Width="14" />
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Camera" x:Name="tiCameraSettings">
+                    <Grid>
+                        <GroupBox x:Name="grpCameraSettings" Header="Camera settings" Height="107" HorizontalAlignment="Left" Margin="9,6,0,0" VerticalAlignment="Top" Width="395">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="214" />
+                                    <ColumnDefinition Width="77*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="6" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="19*" />
+                                </Grid.RowDefinitions>
+                                <Label x:Name="lCameraDevice" Content="Device:" Grid.Column="0"  Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <ComboBox x:Name="cbCameraDevices" ItemsSource="{Binding MediaHandlers.Cameras}" SelectedIndex="{Binding MediaHandlers.WebCamera.DeviceID, Mode=OneWay}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,6,0" SelectionChanged="cbCameraDevices_SelectionChanged" />
+                                <Button x:Name="btnRefreshCameras" Content="Refresh" Grid.Column="2" Grid.Row="1"   HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Click="btnRefreshCameras_Click" />
+
+                                <Label x:Name="lCameraResolution" Content="Resolution:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <ComboBox x:Name="cbCameraResolutions" ItemsSource="{Binding MediaHandlers.WebCamera.Capabilities, Converter={StaticResource ResolutionListConverter}}" SelectedItem="{Binding MediaHandlers.WebCamera.Resolution, Converter={StaticResource ResolutionConverter}}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Margin="0,0,92,0" />
+
+                                <Label x:Name="lCameraFrameRate" Content="Frame rate:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                <ComboBox x:Name="cbCameraFrameRates" ItemsSource="{Binding MediaHandlers.FrameRates, Converter={StaticResource FrameRateListToStringConverter}}" SelectedItem="{Binding MediaHandlers.WebCamera.DesiredFrameRate, Converter={StaticResource FrameRateToStringConverter}}" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Margin="0,0,159,0" />
+                            </Grid>
+                        </GroupBox>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Codecs">
+                    <Grid>
+                        <GroupBox x:Name="grpAudioCodecs" Header="Audio codecs" Margin="10,5,0,0" Grid.Column="0" Height="140" VerticalAlignment="Top" HorizontalAlignment="Left" Width="355">
+                            <Grid>
+                                <ListBox x:Name="lbAudioCodecs" ItemsSource="{Binding Model.AudioCodecs, Mode=OneWay}" ItemsPanel="{StaticResource CodecPanelTemplate}" Height="81" Margin="6,6,10,0" VerticalAlignment="Top">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding CodecName}" IsChecked="{Binding Enabled}" Tag="{Binding PayloadType}" FontSize="11" Checked="CodecCheckBox_Checked" Unchecked="CodecCheckBox_Unchecked" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Button x:Name="btnSelectAllAudioCodecs" Content="Select all" Margin="0,92.12,90,0" VerticalAlignment="Top" Click="btnSelectAllAudioCodecs_Click" HorizontalAlignment="Right" Width="75" />
+                                <Button x:Name="btnDeselectAllAudioCodecs" Content="Deselect all" Margin="0,92.12,10,0"  VerticalAlignment="Top" Click="btnDeselectAllAudioCodecs_Click" HorizontalAlignment="Right" Width="75" />
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox x:Name="grpVideoCodecs" Header="Video codecs" VerticalAlignment="Top" Margin="369,6,0,0" Grid.Column="0" Height="139" HorizontalAlignment="Left" Width="303">
+                            <Grid>
+                                <ListBox x:Name="lbVideoCodecs" ItemsSource="{Binding Model.VideoCodecs, Mode=OneWay}" ItemsPanel="{StaticResource CodecPanelTemplate}" Height="81" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top" Width="173">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Content="{Binding CodecName}" IsChecked="{Binding Enabled, Mode=OneWay}" Tag="{Binding PayloadType}" FontSize="11"  Checked="CodecCheckBox_Checked" Unchecked="CodecCheckBox_Unchecked" />
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                <Button x:Name="btnSelectAllVideoCodecs" Content="Select all"  HorizontalAlignment="Left" Margin="24,92,0,0" Width="75" Click="btnSelectAllVideoCodecs_Click" Height="22" VerticalAlignment="Top" />
+                                <Button x:Name="btnDeselectAllVideoCodecs" Content="Deselect all" HorizontalAlignment="Left" Margin="104,92,0,0"  VerticalAlignment="Top" Width="75" Click="btnDeselectAllVideoCodecs_Click" />
+                                <Label Content="Encoding Quality:" HorizontalAlignment="Left" Margin="184,0,0,0" VerticalAlignment="Top"  />
+                                <ComboBox ItemsSource="{Binding VideoQualities}" SelectedItem="{Binding VideoEncoderQuality}" Margin="188,26,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="99" />
+                            </Grid>
+                        </GroupBox>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Voice Quality" Name="tiVoiceQuality">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="130" />
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="20*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="6" />
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="68*" />
+                        </Grid.RowDefinitions>
+                        <Label Name="lEchoCancellation" Content="Echo Cancellation:" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" />
+                        <CheckBox Name="chkbEchoCancellation" Content="" IsChecked="{Binding MediaHandlers.AudioEnhancer.AcousticEchoCancellation}" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="0,4" />
+
+                        <Label Name="lEchoDelay" Content="Echo Delay:" HorizontalAlignment="Right" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" />
+                        <TextBox Name="tbEchoDelay" Text="{Binding MediaHandlers.AudioEnhancer.EchoDelay}" Grid.Column="4" Grid.Row="1" VerticalAlignment="Center" />
+
+                        <Label Name="lAGC" Content="Auto Gain Control:" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" />
+                        <CheckBox Name="chkbAGC" Content="" IsChecked="{Binding MediaHandlers.AudioEnhancer.AutoGainControl}" Grid.Row="2" Grid.Column="2" Height="16" HorizontalAlignment="Left" VerticalAlignment="Center"  Margin="0,4" />
+
+                        <Label Name="lAGCMaxGain" Content="Max Gain:" HorizontalAlignment="Right" Grid.Column="3" Grid.Row="2" VerticalAlignment="Center" />
+                        <TextBox Name="tbAGCMaxGain" Text="{Binding MediaHandlers.AudioEnhancer.MaxGain}" Grid.Column="4" Grid.Row="2" VerticalAlignment="Center" />
+
+                        <Label Name="lNoiseReductionLevel" Content="Noise Reduction Level:" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                        <ComboBox Name="cbNoiseReductionLevel" ItemsSource="{Binding MediaHandlers.NoiseReductionLevels}" SelectedItem="{Binding MediaHandlers.AudioEnhancer.NoiseReductionLevel}" Grid.Column="2" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="0,2" />
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </Grid>
+</Window>
+>>>>>>> 7d393c6d2b0ffa49a03d0736d945d1ff9fe72789
+    
