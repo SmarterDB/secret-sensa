@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:conv="clr-namespace:secret_sensa.GUI.Converters"
         xmlns:video="clr-namespace:Ozeki.Media.Video.Controls;assembly=VoIPSDK"
-        Title="{Binding TitleString}" Height="750" Width="1000" WindowStartupLocation="CenterScreen"
+        Title="{Binding TitleString}" Height="{Binding CustomHeight, Mode=TwoWay}" Width="1000" WindowStartupLocation="CenterScreen"
         DataContext="{Binding RelativeSource={RelativeSource Self}}" 
         Closing="Window_Closing" 
         Loaded="Window_Loaded" 
@@ -43,9 +43,9 @@
         </Grid.RowDefinitions>
         <GroupBox Name="grpRemoteVideo" Header="Remote video" Height="506" HorizontalAlignment="Left" VerticalAlignment="Top" Width="668" Grid.Column="1">
             <Grid>
-                <video:VideoViewerWPF Width="640" Height="480" HorizontalAlignment="Left" Name="remoteVideoViewer" VerticalAlignment="Top" >
+                <video:VideoViewerWPF Width="656" Height="480" HorizontalAlignment="Left" Name="remoteVideoViewer" VerticalAlignment="Top" >
                 </video:VideoViewerWPF>
-                <GroupBox x:Name="grpLocalVideo" Header="Local video" Height="192" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="196">
+                <GroupBox x:Name="grpLocalVideo" Header="Local video" Height="192" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="196" Margin="0,0,17,-0.333">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="73*"/>
@@ -55,55 +55,18 @@
                             <ColumnDefinition Width="96*" />
                             <ColumnDefinition Width="94*" />
                         </Grid.ColumnDefinitions>
-                        <video:VideoViewerWPF Width="180" Height="135" HorizontalAlignment="Left" Margin="4,7,0,0" x:Name="localVideoViewer" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                        <video:VideoViewerWPF Width="180" Height="135" HorizontalAlignment="Left" Margin="1,7,0,0" x:Name="localVideoViewer" VerticalAlignment="Top" Grid.ColumnSpan="2" />
                         <Button Content="Start camera" HorizontalAlignment="Left" x:Name="btnStartVideo" VerticalAlignment="Top" Width="85" Click="btnStartVideo_Click" Grid.Row="1" Margin="4,0,0,0"  />
                         <Button Content="Stop camera" HorizontalAlignment="Right"  x:Name="btnStopVideo" VerticalAlignment="Top" Width="85" Click="btnStopVideo_Click" Grid.Column="1" Grid.Row="1" />
                     </Grid>
                 </GroupBox>
             </Grid>
         </GroupBox>
-        <StackPanel Width="300" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="507">
-            <GroupBox Name="grpSIPAccount" Header="SIP account settings" Height="250" VerticalAlignment="Top">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10" />
-                        <RowDefinition Height="26" />
-                        <RowDefinition Height="26" />
-                        <RowDefinition Height="26" />
-                        <RowDefinition Height="26" />
-                        <RowDefinition Height="26" />
-                        <RowDefinition Height="26" />
-                        <RowDefinition Height="26" />
-                        <RowDefinition Height="26" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="120" />
-                        <ColumnDefinition Width="158*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Name="lDisplayName" Content="Display name:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
-                    <TextBox Name="tbDisplayName" Grid.Row="1" Grid.Column="1" Text="{Binding Model.AccountModel.DisplayName}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2" />
-
-                    <Label Name="lUserName" Content="User name:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
-                    <TextBox Name="tbUserName" Grid.Row="2" Grid.Column="1" Text="{Binding Model.AccountModel.UserName}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,2,0,3" />
-
-                    <Label Name="lRegisterName" Content="Register name:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
-                    <TextBox Name="tbRegisterName" Grid.Row="3" Grid.Column="1" Text="{Binding Model.AccountModel.RegisterName}"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2" />
-
-                    <Label Name="lPassword" Content="Password:" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
-                    <TextBox Name="tbPassword" Grid.Row="4" Grid.Column="1" Text="{Binding Model.AccountModel.Password}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,2,0,3" />
-
-                    <Label Name="lDomain" Content="Domain:" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
-                    <TextBox Name="tbDomain" Grid.Row="5" Grid.Column="1" Text="{Binding Model.AccountModel.Domain}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2" />
-
-                    <Label Name="lOutboundProxy" Content="Outbound Proxy:" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
-                    <TextBox Name="tbOutboundProxy" Grid.Row="6" Grid.Column="1" Text="{Binding Model.AccountModel.OutboundProxy}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,2,0,3" />
-
-                    <Label Content="Status:" Grid.Row="7" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" />
-                    <!--<TextBox Name="tbPhoneLineStatus"  Grid.Row="7" Grid.Column="1" Text="{Binding Model.SelectedLine.LineStateReason, Mode=OneWay}" IsReadOnly="True"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,3,0,2"  />-->
-                    <Label Name="tbPhoneLineStatus"  Grid.Row="7" Grid.Column="1" Content="{Binding Model.SelectedLine.LineStateReason, Mode=OneWay}" HorizontalAlignment="Left" Height="24" VerticalAlignment="Center" Width="158" Margin="0,3,0,2"  />
-                    <Button Name="btnRegister" Content="Register" Grid.Column="1" Grid.Row="7" Height="26" HorizontalAlignment="Right" VerticalAlignment="Top" Width="75" Click="btnRegister_Click" Margin="0,25.667,93,0" Grid.RowSpan="2" />
-                    <Button Name="btnUnRegister" Content="Unregister" Grid.Column="1" Grid.Row="7" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="btnUnregister_Click" Margin="83,25.667,0,0" Grid.RowSpan="2"/>
-                </Grid>
+        <StackPanel Width="300" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Right" Height="472">
+            <GroupBox Name="grpSIPAccount" Header="SIP statusz" Height="58" HorizontalAlignment="Center" Margin="37,0" Width="226">
+                <StackPanel>
+                    <Label x:Name="tbPhoneLineStatus" Content="{Binding Model.SelectedLine.LineStateReason, Mode=OneWay}" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="204" Margin="5"  />
+                </StackPanel>
             </GroupBox>
             <GroupBox Header="Dialpad" Height="234" HorizontalAlignment="Center" x:Name="grpDialPad" Margin="0,0,0,0">
                 <StackPanel>
@@ -114,8 +77,9 @@
                     <Label Name="lblReasonOfState" Content="{Binding Model.SelectedCall.ReasonOfState, Mode=OneWay}" Height="24" Width="205" />
                     <StackPanel Orientation="Horizontal">
                         <!--<Button x:Name="btnAnswer" Style="{StaticResource Icon}" Content="A"  Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Click="btnAnswer_Click"/>-->
-                        <Button x:Name="btnDialVideo" Style="{StaticResource Icon}" Content="&#xF095;" Foreground="Green" ToolTip="Make a call using audio and video channels" Height="63" HorizontalAlignment="Left" VerticalAlignment="Top" Width="98" Click="btnDialVideo_Click" />
-                        <Button x:Name="btnHangup" Style="{StaticResource Icon}" Content="&#xF098;"  Foreground="Red" Height="63" HorizontalAlignment="Right" VerticalAlignment="Top" Width="98" Click="btnHangup_Click" RenderTransformOrigin="0.5,0.5" />
+                        <Button x:Name="btnDialVideo" Style="{StaticResource Icon}" Content="&#xF095;" Foreground="Green" ToolTip="Make a call using audio and video channels" Height="65" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Click="btnDialVideo_Click" />
+                        <Separator Width="35"></Separator>
+                        <Button x:Name="btnHangup" Style="{StaticResource Icon}" Content="&#xF095;"  Foreground="Red" Height="65" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Click="btnHangup_Click"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
@@ -126,7 +90,7 @@
                 <ColumnDefinition Width="472" />
                 <ColumnDefinition Width="209*" />
             </Grid.ColumnDefinitions>
-            <TabControl Name="tcMedia" Height="182" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="970" Grid.ColumnSpan="3">
+            <TabControl Name="tcMedia" Height="182" Margin="10,8,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="970" Grid.ColumnSpan="3">
                 <TabItem Header="Phone Lines" Name="tiPhoneLines">
                     <GroupBox Header="Phone Lines" HorizontalAlignment="Left" Width="947" Grid.ColumnSpan="2" Height="80" VerticalAlignment="Top">
                         <Grid VerticalAlignment="Top" Height="80">
@@ -148,7 +112,36 @@
                             </ListView>
                         </Grid>
                     </GroupBox>
-
+                </TabItem>
+                <TabItem Header="SIP account settings" x:Name="tiSIPSettings">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="171*" />
+                            <ColumnDefinition Width="123*"/>
+                            <ColumnDefinition Width="560*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="26" />
+                            <RowDefinition Height="26" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Button x:Name="btnRegister" Content="Register" Height="26" HorizontalAlignment="Right" VerticalAlignment="Top" Width="82" Click="btnRegister_Click" Margin="0,3,14,0" />
+                        <Button x:Name="btnUnRegister" Content="Unregister" Height="26" HorizontalAlignment="Left" VerticalAlignment="Top" Width="82" Click="btnUnregister_Click" Margin="6,3,0,0" Grid.Column="1"/>
+                        <Label x:Name="lDisplayName" Content="Display name:" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" Margin="0,1,0,0" Height="25" Width="84" Grid.Row="1" />
+                        <Label x:Name="lUserName" Content="User name:" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" Height="26" Width="69" />
+                        <Label x:Name="lRegisterName" Content="Register name:" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" Height="26" Width="89" />
+                        <Label x:Name="lPassword" Content="Password:" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalContentAlignment="Top" Margin="60.333,0,0,0" Width="63" Height="26" VerticalAlignment="Top" />
+                        <Label x:Name="lDomain" Content="Domain:" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Bottom" Height="26" Margin="0,0,1,0" Width="54" />
+                        <Label x:Name="lOutboundProxy" Content="Outbound Proxy:" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" VerticalContentAlignment="Top" VerticalAlignment="Top" Margin="0,0,1,0" Height="25" Width="100" />
+                        <TextBox x:Name="tbDisplayName" Grid.Column="1" Text="{Binding Model.AccountModel.DisplayName}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,5,0,3" Grid.Row="1" Height="18" />
+                        <TextBox x:Name="tbUserName" Grid.Row="2" Grid.Column="1" Text="{Binding Model.AccountModel.UserName}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,4" Height="18" />
+                        <TextBox x:Name="tbRegisterName" Grid.Row="3" Grid.Column="1" Text="{Binding Model.AccountModel.RegisterName}"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="0,4,0,50" Height="18" />
+                        <TextBox x:Name="tbPassword" Grid.Row="1" Grid.Column="3" Text="{Binding Model.AccountModel.Password}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="4,5,0,3" Height="18" />
+                        <TextBox x:Name="tbDomain" Grid.Row="2" Grid.Column="3" Text="{Binding Model.AccountModel.Domain}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="4,4,0,4" Height="18" />
+                        <TextBox x:Name="tbOutboundProxy" Grid.Row="3" Grid.Column="3" Text="{Binding Model.AccountModel.OutboundProxy}" HorizontalAlignment="Left" VerticalAlignment="Center" Width="158" Margin="4,4,0,50" Height="18" />
+                    </Grid>
                 </TabItem>
                 <TabItem Header="Audio devices" Name="tiMicrophoneSpeakerSettings">
                     <Grid>
@@ -298,6 +291,7 @@
                 </TabItem>
             </TabControl>
         </Grid>
+        <CheckBox Content="Settings" Click="chkSettings_Click" HorizontalAlignment="Left" Margin="109,491,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
     
