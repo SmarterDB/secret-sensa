@@ -3,22 +3,22 @@
   <Profiles />
   <Settings>
     <Setting Name="DisplayName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">cis2</Value>
+      <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="UserName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">cis2</Value>
+      <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="RegisterName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">cis2</Value>
+      <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="User">
-      <Value Profile="(Default)">cis2013</Value>
+      <Value Profile="(Default)">ozeki1000</Value>
     </Setting>
     <Setting Name="Domain" Type="System.String" Scope="User">
-      <Value Profile="(Default)">sip.linphone.org</Value>
+      <Value Profile="(Default)">ozekitest.cloudapp.net</Value>
     </Setting>
     <Setting Name="OutboundProxy" Type="System.String" Scope="User">
-      <Value Profile="(Default)">sip.linphone.org</Value>
+      <Value Profile="(Default)">ozekitest.cloudapp.net</Value>
     </Setting>
   </Settings>
 </SettingsFile>

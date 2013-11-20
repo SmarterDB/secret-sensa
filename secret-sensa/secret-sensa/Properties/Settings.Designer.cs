@@ -25,7 +25,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cis2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public string DisplayName {
             get {
                 return ((string)(this["DisplayName"]));
@@ -37,7 +37,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cis2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public string UserName {
             get {
                 return ((string)(this["UserName"]));
@@ -49,7 +49,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cis2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public string RegisterName {
             get {
                 return ((string)(this["RegisterName"]));
@@ -61,7 +61,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cis2013")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ozeki1000")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
@@ -73,7 +73,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sip.linphone.org")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ozekitest.cloudapp.net")]
         public string Domain {
             get {
                 return ((string)(this["Domain"]));
@@ -85,7 +85,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sip.linphone.org")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ozekitest.cloudapp.net")]
         public string OutboundProxy {
             get {
                 return ((string)(this["OutboundProxy"]));
