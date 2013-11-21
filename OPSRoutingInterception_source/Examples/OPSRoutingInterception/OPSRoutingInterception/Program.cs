@@ -15,7 +15,7 @@ namespace OPSRoutingInterception
         {
             ShowGreetingMessage();
             ReadLoginInfos();
-            SetRoutingInterceptor();
+            SetRoutingInterceptor(client);
             Console.ReadLine();
         }
 
@@ -52,9 +52,9 @@ namespace OPSRoutingInterception
             Login(serverAddress, username, password);
         }
 
-        private static void SetRoutingInterceptor()
+        private static void SetRoutingInterceptor(OpsClient client)
         {
-            client.SetCallRoutingInterceptor(new MyCallRoutingInterceptor());
+            client.SetCallRoutingInterceptor(new MyCallRoutingInterceptor(client));
         }
 
         private static void Login(string serverAddress, string username, string password)
@@ -70,8 +70,6 @@ namespace OPSRoutingInterception
                 Console.WriteLine("Successfully connected to {0} with username: {1}.", serverAddress, username);
                 client.SessionCreated += client_SessionCreated;
                 client.SessionCompleted += client_SessionCompleted;
-                //var lst = client.GetExtensionInfos();
-                //var lst2 = client.GetPhoneBook();
             }
             else
             {
@@ -134,8 +132,5 @@ namespace OPSRoutingInterception
                 Console.Write(inputName + ": ");
             }
         }
-
-        
-
     }
 }
