@@ -1,0 +1,19 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Custom="http://schemas.awesomium.com/winfx"
+        xmlns:core="clr-namespace:Awesomium.Core;assembly=Awesomium.Core"
+        x:Class="OPSCallAssistant.View.CallNotification"
+        Title="Ozeki Call Assistant" Height="300" Width="300" ResizeMode="NoResize" Closing="Window_Closing" Topmost="True" ShowInTaskbar="False" Visibility="Hidden" WindowStyle="None">
+    <Window.Resources>
+        <Custom:WebSessionProvider x:Key="mySession">
+            <core:WebPreferences 
+                SmoothScrolling="True" 
+                CustomCSS="::-webkit-scrollbar { visibility: hidden; }}" 
+                LoadImagesAutomatically="True"/>
+        </Custom:WebSessionProvider>
+    </Window.Resources>
+    <Grid>
+        <Custom:WebControl Name="WebView" Source="{Binding Path=Source, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" WebSession="{Binding Source={StaticResource mySession}}" />
+    </Grid>
+</Window>

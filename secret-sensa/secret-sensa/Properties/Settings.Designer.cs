@@ -12,7 +12,7 @@ namespace secret_sensa.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,7 +25,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cis2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("pgsdk")]
         public string DisplayName {
             get {
                 return ((string)(this["DisplayName"]));
@@ -37,7 +37,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cis2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("pgsdk")]
         public string UserName {
             get {
                 return ((string)(this["UserName"]));
@@ -49,7 +49,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cis2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("pgsdk")]
         public string RegisterName {
             get {
                 return ((string)(this["RegisterName"]));
@@ -61,7 +61,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cis2013")]
+        [global::System.Configuration.DefaultSettingValueAttribute("pgsdk")]
         public string Password {
             get {
                 return ((string)(this["Password"]));
@@ -73,7 +73,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sip.linphone.org")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10.200.131.38")]
         public string Domain {
             get {
                 return ((string)(this["Domain"]));
@@ -85,7 +85,7 @@ namespace secret_sensa.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sip.linphone.org")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10.200.131.38")]
         public string OutboundProxy {
             get {
                 return ((string)(this["OutboundProxy"]));

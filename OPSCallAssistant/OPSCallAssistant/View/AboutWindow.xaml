@@ -1,0 +1,56 @@
+﻿<Window x:Class="OPSCallAssistant.View.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:viewModel="clr-namespace:OPSCallAssistant.ViewModel"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        Title="About call assistant" Height="306.647" Width="329.235" WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        >
+	<DockPanel Background="#186218">
+		<Grid Margin="8">
+			<Grid.Background>
+				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+					<GradientStop Color="White" Offset="0"/>
+					<GradientStop Color="#FF6C9B6C" Offset="1"/>
+				</LinearGradientBrush>
+			</Grid.Background>
+    <StackPanel HorizontalAlignment="Center" Margin="10">
+        
+            <TextBlock HorizontalAlignment="Center" Text="OZEKI" Foreground="#CE171F" Margin="0,0,10,0" FontFamily="Arial,Sans-Serif" FontSize="25" FontWeight="Bold"/>
+            <TextBlock HorizontalAlignment="Center" Text="Phone System XE Call Assistant" FontFamily="Arial,Sans-Serif"  FontSize="18" FontWeight="Bold"/>
+
+        
+
+        <TextBlock Margin="0,15" HorizontalAlignment="Left" TextWrapping="Wrap" Text="This software is the copyrighted work of Ozeki. Use of the software is governed by the terms of the end user license agreement, which is included in the software."/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock HorizontalAlignment="Center" Margin="0,0,5,0">
+                Internet:
+            </TextBlock>
+            <TextBlock HorizontalAlignment="Center">
+            <Hyperlink NavigateUri="http://www.ozekiphone.com" RequestNavigate="AboutLinksRequestNavigate">
+                http://www.ozekiphone.com
+            </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock HorizontalAlignment="Center" Margin="0,0,5,0">
+            E-mail:
+            </TextBlock>
+            <Frame>
+                <Frame.Content>
+                    <TextBlock><Hyperlink NavigateUri="mailto:info@ozekiphone.com">info@ozekiphone.com</Hyperlink></TextBlock>
+                </Frame.Content>
+            </Frame>
+        </StackPanel>
+
+        <TextBlock Margin="0, 15" HorizontalAlignment="Left" TextWrapping="Wrap">
+            © Copyright 2012-2013. Ozeki Informatics Ltd. All rights reserved.
+        </TextBlock>
+
+        <Button Content="OK" Width="75" HorizontalAlignment="Right"  Click="OKClick">
+        </Button>
+    </StackPanel>
+	</Grid>
+</DockPanel>
+</Window>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPSCallAssistant", "OPSCallAssistant\OPSCallAssistant.csproj", "{51E30E2D-4B25-4B67-804D-F9FFD4BC0AFE}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Installer", "Installer\Installer.vdproj", "{3BA740C8-05B9-46AD-B09E-8160D313E77B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{51E30E2D-4B25-4B67-804D-F9FFD4BC0AFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51E30E2D-4B25-4B67-804D-F9FFD4BC0AFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51E30E2D-4B25-4B67-804D-F9FFD4BC0AFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51E30E2D-4B25-4B67-804D-F9FFD4BC0AFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BA740C8-05B9-46AD-B09E-8160D313E77B}.Debug|Any CPU.ActiveCfg = Debug
+		{3BA740C8-05B9-46AD-B09E-8160D313E77B}.Release|Any CPU.ActiveCfg = Release
+		{3BA740C8-05B9-46AD-B09E-8160D313E77B}.Release|Any CPU.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
