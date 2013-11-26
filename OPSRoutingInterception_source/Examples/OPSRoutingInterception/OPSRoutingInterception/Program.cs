@@ -46,9 +46,9 @@ namespace OPSRoutingInterception
             //    username = "admin";
 
             //var password = Read("Password", true);
-            var serverAddress = "ozekitest.cloudapp.net";
-            var username = "admin";
-            var password = "myKcuHiJjxFjODVNeymD";
+            var serverAddress = "10.200.131.38";
+            var username = "gplesz";
+            var password = "gplesz";
             Login(serverAddress, username, password);
         }
 

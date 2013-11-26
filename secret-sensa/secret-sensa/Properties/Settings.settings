@@ -3,22 +3,22 @@
   <Profiles />
   <Settings>
     <Setting Name="DisplayName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1000</Value>
+      <Value Profile="(Default)">pgsdk</Value>
     </Setting>
     <Setting Name="UserName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1000</Value>
+      <Value Profile="(Default)">pgsdk</Value>
     </Setting>
     <Setting Name="RegisterName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1000</Value>
+      <Value Profile="(Default)">pgsdk</Value>
     </Setting>
     <Setting Name="Password" Type="System.String" Scope="User">
-      <Value Profile="(Default)">ozeki1000</Value>
+      <Value Profile="(Default)">pgsdk</Value>
     </Setting>
     <Setting Name="Domain" Type="System.String" Scope="User">
-      <Value Profile="(Default)">ozekitest.cloudapp.net</Value>
+      <Value Profile="(Default)">10.200.131.38</Value>
     </Setting>
     <Setting Name="OutboundProxy" Type="System.String" Scope="User">
-      <Value Profile="(Default)">ozekitest.cloudapp.net</Value>
+      <Value Profile="(Default)">10.200.131.38</Value>
     </Setting>
   </Settings>
 </SettingsFile>
